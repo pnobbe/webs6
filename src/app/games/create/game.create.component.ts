@@ -36,7 +36,7 @@ export class GameCreateComponent implements OnInit {
       this.routebag.setData("newGame", game);
       this.router.navigate(['games']);
     }).catch(err => {
-      // TODO err.errors contains array of errors. show beautifull
+      // TODO err.errors contains array of errors. show beautiful
       alert(err);
       console.log(err);
     });

@@ -52,11 +52,11 @@ export class GameListComponent implements OnInit {
   }
 
   details(game:Game) {
-    this.router.navigate([`games/${game._id}/play`]);
+    this.router.navigate(['games', game._id, 'play']);
   }
 
   play(game:Game) {
-    this.router.navigate([`games/${game._id}/play`]);
+    this.router.navigate(['games', game._id, 'play']);
   }
 
   leave(game:Game) {

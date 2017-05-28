@@ -9,16 +9,16 @@ import {ApiService} from '../api/api.service';
 export class MenuComponent implements OnInit {
   public title = 'Space Mayhem';
 
-  constructor(private router: Router, private api: ApiService) {
+  constructor(private router:Router, private api:ApiService) {
   }
 
-  ngOnInit(): void {
-    if (!localStorage.getItem('user-email')) {
-      this.router.navigate(['/login']);
+  ngOnInit():void {
+    if (this.api.users.email == null) {
+      this.router.navigate(['login']);
     }
   }
 
-  logout(): void {
+  logout():void {
     this.api.users.logout();
     this.router.navigate(['login']);
   }
