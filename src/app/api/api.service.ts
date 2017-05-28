@@ -7,17 +7,17 @@ import {User} from '../models/user';
 import {GameState} from '../models/game-state';
 import {Observable} from 'rxjs/Observable';
 import {Tile} from '../models/tile';
-import {Connection} from './connection';
-import {GameApi} from "./game";
-import {UserApi} from "./user";
-import {TemplateApi} from "./templates";
+import {Connection} from './implementation/connection';
+import {GameApi} from "./implementation/game";
+import {UserApi} from "./implementation/user";
+import {TemplateApi} from "./implementation/templates";
 
 
 @Injectable()
 export class ApiService {
 
   public static user_email = "";
-  
+
   public  templates:TemplateApi;
   public  games:GameApi;
   public  users:UserApi;

@@ -1,9 +1,9 @@
-import {GameState} from "../models/game-state";
-import {GameTemplate} from "../models/game-template";
-import {Game} from "../models/game";
+import {GameState} from "../../models/game-state";
+import {GameTemplate} from "../../models/game-template";
+import {Game} from "../../models/game";
 import {Connection} from "./connection";
 import {Http} from '@angular/http';
-import {Tile} from "../models/tile";
+import {Tile} from "../../models/tile";
 
 export class TemplateApi extends Connection {
 

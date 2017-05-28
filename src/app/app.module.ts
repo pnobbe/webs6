@@ -1,27 +1,22 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { LoginCallbackComponent } from './login/callback.component';
-import { GamePlayComponent } from './games/play/game.play.component';
-import { GameCreateComponent } from './games/create/game.create.component';
-import { GameListComponent } from './games/list/game.list.component';
-import { MenuComponent } from './menu/menu.component';
 import {ApiService} from "./api/api.service";
-import {RouteBag} from "./routeBag.service";
+import {GameModule} from "./game/game.module";
+import {GamesModule} from "./games/games.module";
+import {LoginCallbackComponent} from "./login/callback.component";
+import {LoginComponent} from "./login/login.component";
+import {MenuComponent} from "./menu/menu.component";
+import {MenuModule} from "./menu/menu.module";
+import {LoginModule} from "./login/login.module";
 
 const appRoutes:Routes = <Routes>[
   {
     path: 'login',
-    component: LoginComponent
-  },
-  {
-    path: 'login/callback',
-    component: LoginCallbackComponent
+    children: LoginModule.loginRoutes
   },
   {
     // no endpoint == login endpoint
@@ -31,35 +26,27 @@ const appRoutes:Routes = <Routes>[
   },
   {
     path: 'games',
-    component: GameListComponent
-  },
-  {
-    path: 'games/create',
-    component: GameCreateComponent
-  },
-  {
-    path: 'games/:id/play',
-    component: GamePlayComponent
+    children: GamesModule.gameRoutes
   }
+
+
 ];
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    GameListComponent,
-    GameCreateComponent,
-    GamePlayComponent,
-    LoginComponent,
-    LoginCallbackComponent,
-    MenuComponent,
   ],
   imports: [
-    RouterModule.forRoot(appRoutes),
     BrowserModule,
-    FormsModule,
-    HttpModule
+    HttpModule,
+    RouterModule.forRoot(appRoutes),
+    GamesModule,
+    GameModule,
+    MenuModule,
+    LoginModule
   ],
-  providers: [ApiService, RouteBag], // its here because its a beautiful singleton.
+  providers: [ApiService], // its here because its a beautiful singleton.
   bootstrap: [
     AppComponent
   ]

@@ -3,7 +3,6 @@ import {Game} from 'app/models/game';
 import {GameTemplate} from 'app/models/game-template';
 import {ApiService} from 'app/api/api.service';
 import {Router} from '@angular/router';
-import {RouteBag} from "../../routeBag.service";
 
 @Component({
   selector: 'game-create',
@@ -17,7 +16,7 @@ export class GameCreateComponent implements OnInit {
 
   model:Game;
 
-  constructor(private api:ApiService, private router:Router, private routebag:RouteBag) {
+  constructor(private api:ApiService, private router:Router) {
   }
 
   ngOnInit():void {
@@ -33,7 +32,6 @@ export class GameCreateComponent implements OnInit {
       if (game == null) {
         return alert('Something went wrong!');
       }
-      this.routebag.setData("newGame", game);
       this.router.navigate(['games']);
     }).catch(err => {
       // TODO err.errors contains array of errors. show beautiful

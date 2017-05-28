@@ -1,13 +1,13 @@
 import {Inject, Injectable} from '@angular/core';
 import {DOCUMENT} from '@angular/platform-browser';
 import {Headers, Http, Response, RequestOptionsArgs} from '@angular/http';
-import {Game} from '../models/game';
-import {GameTemplate} from '../models/game-template';
-import {User} from '../models/user';
-import {GameState} from '../models/game-state';
+import {Game} from '../../models/game';
+import {GameTemplate} from '../../models/game-template';
+import {User} from '../../models/user';
+import {GameState} from '../../models/game-state';
 import {Observable} from 'rxjs/Observable';
-import {Tile} from '../models/tile';
-import {ApiService} from "./api.service";
+import {Tile} from '../../models/tile';
+import {ApiService} from "./../api.service";
 
 
 export class Connection {

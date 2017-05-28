@@ -7,13 +7,13 @@ import {ApiService} from "../api/api.service";
 })
 export class LoginCallbackComponent implements OnInit {
 
-  constructor(private router: Router, private route: ActivatedRoute, private api : ApiService) { }
+  constructor(private router:Router, private route:ActivatedRoute, private api:ApiService) {
+  }
 
   ngOnInit() {
-    this.route.queryParams.subscribe((params: Params) => {
+    this.route.queryParams.subscribe((params:Params) => {
 
-      // API
-      this.api.users.login(params['username'],params['token'] );
+      this.api.users.login(params['username'], params['token']);
       this.router.navigate(['games']);
     });
   }

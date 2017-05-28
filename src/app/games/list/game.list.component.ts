@@ -5,7 +5,6 @@ import { OnInit } from '@angular/core';
 import {ApiService} from 'app/api/api.service';
 import {Game} from 'app/models/game';
 import {Router} from '@angular/router';
-import {RouteBag} from "../../routeBag.service";
 
 @Component({
   selector: 'game-list',
@@ -19,22 +18,13 @@ export class GameListComponent implements OnInit {
   games:Game[];
 
 
-  constructor(private api:ApiService, private router:Router, private routebag:RouteBag) {
+  constructor(private api:ApiService, private router:Router) {
   }
 
   ngOnInit():void {
     const self = this;
     this.api.games.getGames().then(games => {
       this.games = games;
-
-      if (self.routebag.getData("createGame") != null) {
-        if (this.games.filter(data => {
-            return data._id == self.routebag.getData("createGame")._id;
-          }).length == 0) {
-          this.games.push(self.routebag.getData("createGame"));
-        }
-      }
-      self.routebag.setData("createGame", null);
     });
 
     // TODO wait for socket calls -> on ANY socket call -> refresh
@@ -57,7 +47,7 @@ export class GameListComponent implements OnInit {
   }
 
   play(game:Game) {
-    this.router.navigate(['games', game._id, 'play']);
+    this.router.navigate(['games', 'play', game._id]);
   }
 
   leave(game:Game) {

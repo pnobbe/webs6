@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit{
 
   ngOnInit(): void {
     if (this.api.users.isLoggedIn) {
-      this.router.navigate(['games']);
+      this.router.navigate(['/']);
     }
   }
 

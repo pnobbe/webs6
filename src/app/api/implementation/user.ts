@@ -1,10 +1,10 @@
-import {GameState} from "../models/game-state";
-import {GameTemplate} from "../models/game-template";
-import {Game} from "../models/game";
+import {GameState} from "../../models/game-state";
+import {GameTemplate} from "../../models/game-template";
+import {Game} from "../../models/game";
 import {Connection} from "./connection";
 import {Http} from '@angular/http';
-import {Tile} from "../models/tile";
-import {User} from "../models/user";
+import {Tile} from "../../models/tile";
+import {User} from "../../models/user";
 
 export class UserApi extends Connection {
 
