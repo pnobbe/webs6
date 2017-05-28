@@ -1,0 +1,52 @@
+<menu></menu>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">Games list</div>
+        <div class="horizontally-scrollable">
+          <table class="table">
+            <tr class="info">
+              <th>Game</th>
+              <th>State</th>
+              <th>Created On</th>
+              <th>Started On</th>
+              <th>Ended On</th>
+              <th>Created By</th>
+              <th>Players</th>
+            </tr>
+            <tr *ngFor="let game of games">
+              <td>{{game.gameTemplate.id}}</td>
+              <td>{{game.state}}</td>
+              <td>{{game.createdOn | date: 'd-M-y HH:mm:ss'}}</td>
+              <td>{{game.startedOn | date: 'd-M-y HH:mm:ss'}}</td>
+              <td>{{game.endedOn | date: 'd-M-y HH:mm:ss'}}</td>
+              <td>{{game.createdBy.name}}</td>
+              <td>{{game.players.length}} / {{game.maxPlayers}}</td>
+              <td>
+                <div class="dropdown" [ngClass]="{hidden : !game.hasActions}">
+                  <ul class="dropdown-menu">
+                    <li><a href="javascript:void(0)" [ngClass]="{hidden : false}"
+                           (click)="join(game)">Join</a>
+                    </li>
+                    <li><a href="javascript:void(0)" [ngClass]="{hidden : false}"
+                           (click)="leave(game)">Leave</a>
+                    </li>
+                    <li><a href="javascript:void(0)" [ngClass]="{hidden : false}"
+                           (click)="start(game)">Start</a>
+                    </li>
+                    <li><a href="javascript:void(0)" [ngClass]="{hidden : false}"
+                           (click)="play(game)">Play</a>
+                    </li>
+                    <li><a href="javascript:void(0)" [ngClass]="{hidden : false}"
+                           (click)="delete(game)">Delete</a></li>
+                  </ul>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

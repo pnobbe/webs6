@@ -1,0 +1,47 @@
+import {Component, OnInit} from '@angular/core';
+import {Game} from 'app/models/game';
+import {GameTemplate} from 'app/models/game-template';
+import {ApiService} from 'app/api/api.service';
+import {Router} from '@angular/router';
+
+@Component({
+  selector: 'game-create',
+  templateUrl: './game.create.component.html',
+  styleUrls: [
+    './game.create.component.css',
+  ],
+  providers: [
+    ApiService
+  ]
+})
+export class GameCreateComponent implements OnInit {
+  gameTemplates: GameTemplate[] = [];
+
+  model: Game;
+
+  constructor(private api: ApiService, private router: Router) {
+  }
+
+  ngOnInit(): void {
+    this.newGame();
+
+    this.api.templates.getTemplates().then(templates => {
+      this.gameTemplates = templates;
+    });
+  }
+
+  onSubmit() {
+    this.api.games.createGame(this.model.gameTemplate.id, this.model.minPlayers, this.model.maxPlayers).then(bool => {
+      if (!bool) {
+        return alert('Something went wrong!');
+      }
+
+      this.router.navigate(['games']);
+    });
+  }
+
+  newGame() {
+    this.model = new Game({gameTemplate: new GameTemplate()});
+    this.model.minPlayers = 1;
+  }
+}
