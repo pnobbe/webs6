@@ -34,7 +34,7 @@ export class Game {
 
 
   get hasActions():boolean {
-    return this.canJoin || this.canStart || this.canPlay || this.canLeave || this.canDelete || this.canDetails || this.canLobby;
+    return this.canJoin || this.canStart || this.canPlay || this.canLeave || this.canDelete || this.canLobby;
   }
 
   get canJoin():boolean {
@@ -57,10 +57,6 @@ export class Game {
   get canLobby():boolean {
     return this.curUserInGame()
       && this.state === 'open';
-  }
-
-  get canDetails():boolean {
-    return !this.canLobby && !this.canPlay;
   }
 
   get canLeave():boolean {
