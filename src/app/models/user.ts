@@ -1,9 +1,9 @@
 export class User {
-  _id: string;
-  name: string;
-  numberOfMatches: number;
+  _id:string;
+  name:string;
+  numberOfMatches:number;
 
-  constructor(values: Object = {}) {
+  constructor(values:Object = {}) {
     Object.assign(this, values);
   }
 }

@@ -12,6 +12,7 @@ import { GameCreateComponent } from './games/create/game.create.component';
 import { GameListComponent } from './games/list/game.list.component';
 import { MenuComponent } from './menu/menu.component';
 import {ApiService} from "./api/api.service";
+import {RouteBag} from "./routeBag.service";
 
 const appRoutes:Routes = <Routes>[
   {
@@ -58,7 +59,7 @@ const appRoutes:Routes = <Routes>[
     FormsModule,
     HttpModule
   ],
-  providers: [ApiService],
+  providers: [ApiService, RouteBag], // its here because its a beautiful singleton.
   bootstrap: [
     AppComponent
   ]

@@ -8,57 +8,51 @@ import {Tile} from "../models/tile";
 export class TemplateApi extends Connection {
 
 
-  public constructor( http:Http) {
+  public constructor(http:Http) {
     super(http);
   }
 
-  public gameTemplates:GameTemplate[] = [];
-  public gameStates:GameState[] = [];
 
   public getTemplates():Promise<GameTemplate[]> {
     return new Promise((resolve, reject) => {
-      if (this.gameTemplates.length > 0) {
-        return resolve(this.gameTemplates);
-      }
+
+      var gameTemplates:GameTemplate[] = [];
 
       this.get('gameTemplates').subscribe(response => {
         if (response.ok) {
-          response.json().forEach(object => this.gameTemplates.push(new GameTemplate(object)));
-          return resolve(this.gameTemplates);
+          response.json().forEach(object => gameTemplates.push(new GameTemplate(object)));
+          return resolve(gameTemplates);
         }
 
-        reject();
-      });
-    });
-  }
-
-  public getTemplate(template:string):Promise<GameTemplate> {
-    return new Promise((resolve, reject) => {
-      this.getTemplates().then(templates => {
-        const temp = templates.find((gameTemplate:GameTemplate) => gameTemplate.id === template);
-
-        if (!temp) {
-          return resolve(temp);
-        }
         reject();
       }, reject);
     });
   }
 
+  public getTemplate(template:string):Promise<GameTemplate> {
+    return new Promise((resolve, reject) => {
+
+      this.get(`gameTemplates/${template}`).subscribe(response => {
+        if (response.ok) {
+          return resolve(new GameTemplate(response.json()));
+        }
+        reject();
+      }, reject);
+
+    });
+  }
+
   public getStates():Promise<GameState[]> {
     return new Promise((resolve, reject) => {
-      if (this.gameStates.length > 0) {
-        return resolve(this.gameStates);
-      }
-
+      var gameStates:GameState[] = [];
       this.get('gamestatus').subscribe(response => {
         if (response.ok) {
-          response.json().forEach(object => this.gameStates.push(new GameState(object)));
-          return resolve(this.gameStates);
+          response.json().forEach(object => gameStates.push(new GameState(object)));
+          return resolve(gameStates);
         }
 
         reject();
-      });
+      }, reject);
     });
   }
 

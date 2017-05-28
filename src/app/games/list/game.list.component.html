@@ -24,24 +24,29 @@
               <td>{{game.createdBy.name}}</td>
               <td>{{game.players.length}} / {{game.maxPlayers}}</td>
               <td>
-                <div class="dropdown" [ngClass]="{hidden : !game.hasActions}">
-                  <ul class="dropdown-menu">
-                    <li><a href="javascript:void(0)" [ngClass]="{hidden : false}"
-                           (click)="join(game)">Join</a>
-                    </li>
-                    <li><a href="javascript:void(0)" [ngClass]="{hidden : false}"
-                           (click)="leave(game)">Leave</a>
-                    </li>
-                    <li><a href="javascript:void(0)" [ngClass]="{hidden : false}"
-                           (click)="start(game)">Start</a>
-                    </li>
-                    <li><a href="javascript:void(0)" [ngClass]="{hidden : false}"
-                           (click)="play(game)">Play</a>
-                    </li>
-                    <li><a href="javascript:void(0)" [ngClass]="{hidden : false}"
-                           (click)="delete(game)">Delete</a></li>
-                  </ul>
-                </div>
+                <ul [hidden]="!game.hasActions" class="dropdown-menu">
+                  <li [hidden]="! game.canLobby">
+                    <a href="javascript:void(0)" (click)="play(game)">Go to Lobby</a>
+                  </li>
+                  <li [hidden]="!game.canJoin">
+                    <a href="javascript:void(0)" (click)="join(game)">Join</a>
+                  </li>
+                  <li [hidden]="! game.canLeave">
+                    <a href="javascript:void(0)" (click)="leave(game)">Leave</a>
+                  </li>
+                  <li [hidden]="!game.canStart">
+                    <a href="javascript:void(0)" (click)="start(game)">Start</a>
+                  </li>
+                  <li [hidden]="!game.canPlay">
+                    <a href="javascript:void(0)" (click)="play(game)">Play</a>
+                  </li>
+                  <li [hidden]="!game.canDelete">
+                    <a href="javascript:void(0)" (click)="delete(game)">Delete</a>
+                  </li>
+                  <li [hidden]="!game.canDetails">
+                    <a href="javascript:void(0)" (click)="details(game)">Details</a>
+                  </li>
+                </ul>
               </td>
             </tr>
           </table>

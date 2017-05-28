@@ -9,7 +9,7 @@ import {User} from "../models/user";
 export class UserApi extends Connection {
 
 
-  public constructor( http:Http, private document:any) {
+  public constructor(http:Http, private document:any) {
     super(http);
   }
 
@@ -18,8 +18,7 @@ export class UserApi extends Connection {
   }
 
 
-  public login(email: string, token:string)
-  {
+  public login(email:string, token:string) {
     // see connection for get/set
     this.email = email;
     this.token = token;
@@ -34,8 +33,12 @@ export class UserApi extends Connection {
         }
 
         reject();
-      });
+      }, reject);
     });
+  }
+
+  public getMe():User {
+    return new User({_id: this.email});
   }
 
 }

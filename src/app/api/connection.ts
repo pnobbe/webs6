@@ -7,16 +7,19 @@ import {User} from '../models/user';
 import {GameState} from '../models/game-state';
 import {Observable} from 'rxjs/Observable';
 import {Tile} from '../models/tile';
+import {ApiService} from "./api.service";
 
 
 export class Connection {
   private _host = 'http://mahjongmayhem.herokuapp.com';
+
 
   constructor(private http:Http) {
   }
 
 
   set email(email:string) {
+    ApiService.user_email = email;
     localStorage.setItem('user-email', email);
   }
 

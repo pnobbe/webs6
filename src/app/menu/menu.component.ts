@@ -4,13 +4,10 @@ import {ApiService} from '../api/api.service';
 
 @Component({
   selector: 'menu',
-  templateUrl: './menu.component.html',
-  providers: [
-    ApiService
-  ]
+  templateUrl: './menu.component.html'
 })
 export class MenuComponent implements OnInit {
-  title = 'WEBS6: Mahjong';
+  public title = 'Space Mayhem';
 
   constructor(private router: Router, private api: ApiService) {
   }

@@ -7,9 +7,6 @@ import {Router} from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: [
     './login.component.css'
-  ],
-  providers: [
-    ApiService
   ]
 })
 export class LoginComponent implements OnInit{

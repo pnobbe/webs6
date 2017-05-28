@@ -12,18 +12,18 @@ export class GameApi extends Connection {
     super(http);
   }
 
-  public games:Game[] = [];
 
   public getGames():Promise<Game[]> {
+    let games:Game[] = [];
     return new Promise((resolve, reject) => {
       this.get('games').subscribe(response => {
         if (response.ok) {
-          response.json().forEach(object => this.games.push(new Game(object)));
-          return resolve(this.games);
+          response.json().forEach(object => games.push(new Game(object)));
+          return resolve(games);
         }
 
         reject();
-      });
+      }, reject);
     });
   }
 
@@ -36,30 +36,23 @@ export class GameApi extends Connection {
       }).subscribe(response => {
         if (response.ok) {
           const game = new Game(response.json());
-          this.games.push(game);
           return resolve(game);
         }
-
-        reject();
-      });
+        reject(response.json());
+      }, reject);
     });
   }
 
   public getGame(gameId:string):Promise<Game> {
     return new Promise((resolve, reject) => {
-      const temp = this.games.find(game => game._id === gameId);
 
-      if (!temp) {
-        this.get(`games/${gameId}`).subscribe(response => {
-          if (response.ok) {
-            return resolve(new Game(response.json()));
-          }
+      this.get(`games/${gameId}`).subscribe(response => {
+        if (response.ok) {
+          return resolve(new Game(response.json()));
+        }
+        reject();
+      }, reject);
 
-          reject();
-        }, reject);
-      } else {
-        resolve(temp);
-      }
     });
   }
 
@@ -67,12 +60,11 @@ export class GameApi extends Connection {
     return new Promise((resolve, reject) => {
       this.delete(`games/${gameId}`).subscribe(response => {
         if (response.ok) {
-        // TODO
+          // TODO send socket broadcast
           return resolve(true);
         }
-
-        reject(false);
-      });
+        resolve(false);
+      }, reject);
     });
   }
 
@@ -80,12 +72,11 @@ export class GameApi extends Connection {
     return new Promise((resolve, reject) => {
       this.post(`games/${gameId}/start`).subscribe(response => {
         if (response.ok) {
-          // TODO
+          // TODO send socket broadcast
           return resolve(true);
         }
-
-        reject(false);
-      });
+        resolve(false);
+      }, reject);
     });
   }
 
@@ -93,12 +84,11 @@ export class GameApi extends Connection {
     return new Promise((resolve, reject) => {
       this.post(`games/${gameId}/players`).subscribe(response => {
         if (response.ok) {
-         // TODO
+          // TODO send socket broadcast
           return resolve(true);
         }
-
-        reject(false);
-      });
+        resolve(false);
+      }, reject);
     });
   }
 
@@ -107,12 +97,12 @@ export class GameApi extends Connection {
       this.delete(`games/${gameId}/players`).subscribe(response => {
         console.log(response);
         if (response.ok) {
-          // TODO
+          // TODO send socket broadcast
           return resolve(true);
         }
 
-        reject(false);
-      });
+        resolve(false);
+      }, reject);
     });
   }
 
@@ -132,7 +122,7 @@ export class GameApi extends Connection {
         }
 
         reject();
-      });
+      }, reject);
     });
   }
 
@@ -143,11 +133,12 @@ export class GameApi extends Connection {
         tile2Id: tile2Id
       }).subscribe(response => {
         if (response.ok) {
+          // todo send socket broadcast
           return resolve(response.json());
         }
 
         reject();
-      });
+      }, reject);
     });
   }
 

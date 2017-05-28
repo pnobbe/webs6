@@ -16,7 +16,8 @@ import {TemplateApi} from "./templates";
 @Injectable()
 export class ApiService {
 
-
+  public static user_email = "";
+  
   public  templates:TemplateApi;
   public  games:GameApi;
   public  users:UserApi;
@@ -25,6 +26,9 @@ export class ApiService {
     this.templates = new TemplateApi(http);
     this.games = new GameApi(http);
     this.users = new UserApi(http, document);
+
+    // set from storage
+    ApiService.user_email = this.users.email;
   }
 
 
