@@ -4,6 +4,7 @@ import {  Routes } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import {LoginCallbackComponent} from "./callback.component";
 import {LoginComponent} from "./login.component";
+import {ApiService} from "../api/api.service";
 
 
 @NgModule({
@@ -16,24 +17,21 @@ import {LoginComponent} from "./login.component";
     LoginCallbackComponent,
     LoginComponent
   ],
-  providers: [],
+  providers: [ApiService],
   exports: []
 })
 export class LoginModule {
 
-  static get loginRoutes() {
-
-    return <Routes>[
-      {
-        path: '',
-        component: LoginComponent
-      },
-      {
-        path: 'callback',
-        component: LoginCallbackComponent
-      }
-    ];
-
-  }
 }
+
+export const loginRoutes = <Routes>[
+  {
+    path: '',
+    component: LoginComponent
+  },
+  {
+    path: 'callback',
+    component: LoginCallbackComponent
+  }
+];
 

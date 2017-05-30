@@ -8,21 +8,22 @@ import {GameModule} from "./game/game.module";
 import {GamesModule} from "./games/games.module";
 import {MenuModule} from "./menu/menu.module";
 import {LoginModule} from "./login/login.module";
+import {gameRoutes} from "./games/games.module";
+import {loginRoutes} from "./login/login.module";
 
 const appRoutes:Routes = <Routes>[
   {
     path: 'login',
-    children: LoginModule.loginRoutes
+    children: loginRoutes
   },
   {
-    // no endpoint == login endpoint
     path: '',
     redirectTo: '/login',
     pathMatch: 'full'
   },
   {
     path: 'games',
-    children: GamesModule.gameRoutes
+    children: gameRoutes
   }
 
 

@@ -26,23 +26,21 @@ import { BrowserModule } from '@angular/platform-browser';
 })
 export class GamesModule {
 
-  static get gameRoutes() {
 
-    return <Routes>[
-      {
-        path: '',
-        component: GameListComponent
-      },
-      {
-        path: 'create',
-        component: GameCreateComponent
-      },
-      {
-        path: 'play/:id',
-        component: GamePlayComponent
-      }
-    ];
-
-  }
 }
+
+export const gameRoutes = <Routes>[
+  {
+    path: '',
+    component: GameListComponent
+  },
+  {
+    path: 'create',
+    component: GameCreateComponent
+  },
+  {
+    path: 'play/:id',
+    component: GamePlayComponent
+  }
+];
 
