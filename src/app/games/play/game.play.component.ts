@@ -50,7 +50,7 @@ export class GamePlayComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.sockets.close()
+    this.sockets.close();
   }
 
 }
