@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
 
 // Services
 import {ApiService} from 'app/api/api.service';
@@ -8,7 +7,7 @@ import {Game} from 'app/models/game';
 import {Router} from '@angular/router';
 
 @Component({
-  selector: 'game-list',
+  selector: 'app-game-list-selector',
   templateUrl: './game.list.component.html',
   styleUrls: [
     './game.list.component.css',
@@ -21,7 +20,6 @@ export class GameListComponent implements OnInit {
   status = "";
 
   constructor(private api:ApiService, private router:Router, private route:ActivatedRoute) {
-
   }
 
   ngOnInit():void {
@@ -45,15 +43,15 @@ export class GameListComponent implements OnInit {
     this.api.games.deleteGame(game._id).then(success => {
       if (success) {
         this.games = self.games.filter(g => {
-          return g._id != game._id;
-        })
+          return g._id !== game._id;
+        });
       }
-    })
+    });
   }
 
   details(game:Game) {
-    console.log("Show a div somewhere on page with all game info");
-    alert("see console");
+    console.log('Show a div somewhere on page with all game info');
+    alert('see console');
   }
 
   play(game:Game) {
@@ -64,18 +62,18 @@ export class GameListComponent implements OnInit {
     const self = this;
     this.api.games.leaveGame(game._id).then(success => {
       if (success === true) {
-        game.players = game.players.filter((data => data._id != self.api.users.getMe()._id));
+        game.players = game.players.filter((data => data._id !== self.api.users.getMe()._id));
       }
-    })
+    });
   }
 
   start(game:Game) {
     this.api.games.startGame(game._id).then(success => {
       if (success === true) {
-        game.state = "playing";
+        game.state = 'playing';
         game.startedOn = Date.now().toString();
       }
-    })
+    });
   }
 
   join(game:Game) {
@@ -84,7 +82,7 @@ export class GameListComponent implements OnInit {
       if (success === true) {
         game.players.push(self.api.users.getMe());
       }
-    })
+    });
   }
 
   getStatus() {

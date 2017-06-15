@@ -103,7 +103,11 @@ export class GameApi extends Connection {
   }
 
   public gameTiles(gameId:string, matched?:boolean):Promise<Tile[]> {
+    const params = [];
 
+    if (matched !== null) {
+      params['matched'] = matched;
+    }
 
     return new Promise((resolve, reject) => {
       this.get(`games/${gameId}/tiles`).subscribe(response => {

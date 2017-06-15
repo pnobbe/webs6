@@ -1,11 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../../api/api.service';
 import {Game} from '../../models/game';
-import {ActivatedRoute, Params} from '@angular/router';
-import {Tile} from '../../models/tile';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
-  selector: 'game-play',
+  selector: 'app-game-play-selector',
   templateUrl: './game.play.component.html',
   styleUrls: [
     './game.play.component.css'
@@ -13,9 +12,9 @@ import {Tile} from '../../models/tile';
 })
 export class GamePlayComponent implements OnInit {
 
-  game:Game;
+  game: Game;
 
-  constructor(private api:ApiService, private route:ActivatedRoute) {
+  constructor(private api: ApiService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {

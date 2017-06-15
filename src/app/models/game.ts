@@ -1,23 +1,23 @@
-import {User} from './user' ;
+import {User} from './user';
 import {GameTemplate} from './game-template';
 import {Tile} from './tile';
-import {ApiService} from "../api/api.service";
+import {ApiService} from '../api/api.service';
 
 export class Game {
-  _id:string;
-  gameTemplate:GameTemplate;
-  createdOn:string;
-  startedOn:string;
-  endedOn:string;
-  createdBy:User;
-  minPlayers:number;
-  maxPlayers:number;
-  players:User[];
-  state:string;
-  tiles:Tile[];
+  _id: string;
+  gameTemplate: GameTemplate;
+  createdOn: string;
+  startedOn: string;
+  endedOn: string;
+  createdBy: User;
+  minPlayers: number;
+  maxPlayers: number;
+  players: User[];
+  state: string;
+  tiles: Tile[];
 
 
-  constructor(values:Object = {}) {
+  constructor(values: Object = {}) {
     Object.assign(this, values);
 
     // casting
@@ -33,47 +33,47 @@ export class Game {
   }
 
 
-  get hasActions():boolean {
+  get hasActions(): boolean {
     return this.canJoin || this.canStart || this.canPlay || this.canLeave || this.canDelete || this.canLobby;
   }
 
-  get canJoin():boolean {
+  get canJoin(): boolean {
     return this.players.length < this.maxPlayers
       && this.state === 'open'
       && !this.curUserInGame();
   }
 
-  get canStart():boolean {
+  get canStart(): boolean {
     return this.createdBy._id === ApiService.user_email
       && this.state === 'open'
       && this.players.length >= this.minPlayers;
   }
 
-  get canPlay():boolean {
+  get canPlay(): boolean {
     return this.curUserInGame()
       && this.state === 'playing';
   }
 
-  get canLobby():boolean {
+  get canLobby(): boolean {
     return this.curUserInGame()
       && this.state === 'open';
   }
 
-  get canLeave():boolean {
+  get canLeave(): boolean {
     return this.curUserInGame()
-        //&& this.createdBy._id !== ApiService.user_email
+      // && this.createdBy._id !== ApiService.user_email
       && this.state === 'open';
   }
 
-  get canDelete():boolean {
+  get canDelete(): boolean {
     return this.createdBy._id === ApiService.user_email
       && ['open', 'finished'].indexOf(this.state) > -1;
   }
 
-  private inGame(email:String):boolean {
+  private inGame(email: String): boolean {
     let found = false;
     this.players.forEach(user => {
-      if (user._id == email) {
+      if (user._id === email) {
         found = true;
         return false;
       }
@@ -82,7 +82,7 @@ export class Game {
 
   }
 
-  private curUserInGame():boolean {
+  private curUserInGame(): boolean {
     return this.inGame(ApiService.user_email);
   }
 
