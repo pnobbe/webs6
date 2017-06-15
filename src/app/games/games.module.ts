@@ -7,6 +7,8 @@ import { FormsModule } from '@angular/forms';
 import {GamePlayComponent} from "./play/game.play.component";
 import {MenuModule} from "../menu/menu.module";
 import { BrowserModule } from '@angular/platform-browser';
+import {GameListFilterPipe} from "./list/game.list.filter.pipe";
+import {RouterModule} from '@angular/router';
 
 @NgModule({
 
@@ -15,11 +17,14 @@ import { BrowserModule } from '@angular/platform-browser';
     FormsModule,
     MenuModule,
     BrowserModule,
+    RouterModule,
+
   ],
   declarations: [
     GameListComponent,
     GameCreateComponent,
-    GamePlayComponent
+    GamePlayComponent,
+    GameListFilterPipe
   ],
   providers: [],
   exports: []
@@ -30,10 +35,7 @@ export class GamesModule {
 }
 
 export const gameRoutes = <Routes>[
-  {
-    path: '',
-    component: GameListComponent
-  },
+
   {
     path: 'create',
     component: GameCreateComponent
@@ -41,6 +43,14 @@ export const gameRoutes = <Routes>[
   {
     path: 'play/:id',
     component: GamePlayComponent
-  }
+  },
+  {
+    path: ':status',
+    component: GameListComponent
+  },
+  {
+    path: '',
+    component: GameListComponent
+  },
 ];
 

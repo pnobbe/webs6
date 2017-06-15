@@ -60,7 +60,6 @@ export class GameApi extends Connection {
     return new Promise((resolve, reject) => {
       this.delete(`games/${gameId}`).subscribe(response => {
         if (response.ok) {
-          // TODO send socket broadcast
           return resolve(true);
         }
         resolve(false);
@@ -72,7 +71,6 @@ export class GameApi extends Connection {
     return new Promise((resolve, reject) => {
       this.post(`games/${gameId}/start`).subscribe(response => {
         if (response.ok) {
-          // TODO send socket broadcast
           return resolve(true);
         }
         resolve(false);
@@ -84,7 +82,6 @@ export class GameApi extends Connection {
     return new Promise((resolve, reject) => {
       this.post(`games/${gameId}/players`).subscribe(response => {
         if (response.ok) {
-          // TODO send socket broadcast
           return resolve(true);
         }
         resolve(false);
@@ -97,7 +94,6 @@ export class GameApi extends Connection {
       this.delete(`games/${gameId}/players`).subscribe(response => {
         console.log(response);
         if (response.ok) {
-          // TODO send socket broadcast
           return resolve(true);
         }
 
@@ -107,20 +103,15 @@ export class GameApi extends Connection {
   }
 
   public gameTiles(gameId:string, matched?:boolean):Promise<Tile[]> {
-    const params = [];
 
-    if (matched !== null) {
-      params['matched'] = matched;
-    }
 
     return new Promise((resolve, reject) => {
-      this.get(`games/${gameId}/tiles`, params).subscribe(response => {
+      this.get(`games/${gameId}/tiles`).subscribe(response => {
         if (response.ok) {
           const tiles = [];
           response.json().forEach(object => tiles.push(new Game(object)));
           return resolve(tiles);
         }
-
         reject();
       }, reject);
     });
@@ -133,7 +124,6 @@ export class GameApi extends Connection {
         tile2Id: tile2Id
       }).subscribe(response => {
         if (response.ok) {
-          // todo send socket broadcast
           return resolve(response.json());
         }
 

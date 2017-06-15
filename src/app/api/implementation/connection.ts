@@ -56,7 +56,7 @@ export class Connection {
     return headers;
   }
 
-  public get(route:string, query:any[] = []):Observable<Response> {
+  public get(route:string):Observable<Response> {
     return this.http.get(this.url(route));
   }
 
