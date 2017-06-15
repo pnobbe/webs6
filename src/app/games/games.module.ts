@@ -8,7 +8,6 @@ import {FormsModule} from "@angular/forms";
 import {GamePlayComponent} from "./play/game.play.component";
 import {MenuModule} from "../menu/menu.module";
 import {BrowserModule} from "@angular/platform-browser";
-<<<<<<< HEAD
 
 @NgModule({
 
