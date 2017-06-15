@@ -5,21 +5,21 @@ import {ApiService} from 'app/api/api.service';
 import {Router} from '@angular/router';
 
 @Component({
-  selector: 'game-create',
+  selector: 'app-game-create-selector',
   templateUrl: './game.create.component.html',
   styleUrls: [
     './game.create.component.css',
   ]
 })
 export class GameCreateComponent implements OnInit {
-  gameTemplates:GameTemplate[] = [];
+  gameTemplates: GameTemplate[] = [];
 
-  model:Game;
+  model: Game;
 
-  constructor(private api:ApiService, private router:Router) {
+  constructor(private api: ApiService, private router: Router) {
   }
 
-  ngOnInit():void {
+  ngOnInit(): void {
     this.newGame();
 
     this.api.templates.getTemplates().then(templates => {

@@ -1,13 +1,11 @@
-import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
-
+import {Component, OnInit} from '@angular/core';
 // Services
 import {ApiService} from 'app/api/api.service';
 import {Game} from 'app/models/game';
 import {Router} from '@angular/router';
 
 @Component({
-  selector: 'game-list',
+  selector: 'app-game-list-selector',
   templateUrl: './game.list.component.html',
   styleUrls: [
     './game.list.component.css',
@@ -15,13 +13,13 @@ import {Router} from '@angular/router';
 })
 export class GameListComponent implements OnInit {
 
-  games:Game[];
+  games: Game[];
 
 
-  constructor(private api:ApiService, private router:Router) {
+  constructor(private api: ApiService, private router: Router) {
   }
 
-  ngOnInit():void {
+  ngOnInit(): void {
     const self = this;
     this.api.games.getGames().then(games => {
       this.games = games;
@@ -30,51 +28,51 @@ export class GameListComponent implements OnInit {
     // TODO wait for socket calls -> on ANY socket call -> refresh
   }
 
-  delete(game:Game) {
+  delete(game: Game) {
     const self = this;
     this.api.games.deleteGame(game._id).then(success => {
       if (success) {
         this.games = self.games.filter(g => {
-          return g._id != game._id;
-        })
+          return g._id !== game._id;
+        });
       }
-    })
+    });
   }
 
-  details(game:Game) {
-    console.log("Show a div somewhere on page with all game info");
-    alert("see console");
+  details(game: Game) {
+    console.log('Show a div somewhere on page with all game info');
+    alert('see console');
   }
 
-  play(game:Game) {
+  play(game: Game) {
     this.router.navigate(['games', 'play', game._id]);
   }
 
-  leave(game:Game) {
+  leave(game: Game) {
     const self = this;
     this.api.games.leaveGame(game._id).then(success => {
       if (success === true) {
-        game.players = game.players.filter((data => data._id != self.api.users.getMe()._id));
+        game.players = game.players.filter((data => data._id !== self.api.users.getMe()._id));
       }
-    })
+    });
   }
 
-  start(game:Game) {
+  start(game: Game) {
     this.api.games.startGame(game._id).then(success => {
       if (success === true) {
-        game.state = "playing";
+        game.state = 'playing';
         game.startedOn = Date.now().toString();
       }
-    })
+    });
   }
 
-  join(game:Game) {
+  join(game: Game) {
     const self = this;
     this.api.games.joinGame(game._id).then(success => {
       if (success === true) {
         game.players.push(self.api.users.getMe());
       }
-    })
+    });
   }
 
 }

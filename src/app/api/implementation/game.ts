@@ -1,20 +1,18 @@
-import {GameState} from "../../models/game-state";
-import {GameTemplate} from "../../models/game-template";
-import {Game} from "../../models/game";
-import {Connection} from "./connection";
+import {Game} from '../../models/game';
+import {Connection} from './connection';
 import {Http} from '@angular/http';
-import {Tile} from "../../models/tile";
+import {Tile} from '../../models/tile';
 
 export class GameApi extends Connection {
 
 
-  public constructor(http:Http) {
+  public constructor(http: Http) {
     super(http);
   }
 
 
-  public getGames():Promise<Game[]> {
-    let games:Game[] = [];
+  public getGames(): Promise<Game[]> {
+    const games: Game[] = [];
     return new Promise((resolve, reject) => {
       this.get('games').subscribe(response => {
         if (response.ok) {
@@ -27,7 +25,7 @@ export class GameApi extends Connection {
     });
   }
 
-  public createGame(template:string, minPlayers:number, maxPlayers:number):Promise<Game> {
+  public createGame(template: string, minPlayers: number, maxPlayers: number): Promise<Game> {
     return new Promise((resolve, reject) => {
       this.post('games', {
         'templateName': template,
@@ -43,7 +41,7 @@ export class GameApi extends Connection {
     });
   }
 
-  public getGame(gameId:string):Promise<Game> {
+  public getGame(gameId: string): Promise<Game> {
     return new Promise((resolve, reject) => {
 
       this.get(`games/${gameId}`).subscribe(response => {
@@ -56,7 +54,7 @@ export class GameApi extends Connection {
     });
   }
 
-  public deleteGame(gameId:string):Promise<boolean> {
+  public deleteGame(gameId: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       this.delete(`games/${gameId}`).subscribe(response => {
         if (response.ok) {
@@ -68,7 +66,7 @@ export class GameApi extends Connection {
     });
   }
 
-  public startGame(gameId:string):Promise<boolean> {
+  public startGame(gameId: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       this.post(`games/${gameId}/start`).subscribe(response => {
         if (response.ok) {
@@ -80,7 +78,7 @@ export class GameApi extends Connection {
     });
   }
 
-  public joinGame(gameId:string):Promise<boolean> {
+  public joinGame(gameId: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       this.post(`games/${gameId}/players`).subscribe(response => {
         if (response.ok) {
@@ -92,7 +90,7 @@ export class GameApi extends Connection {
     });
   }
 
-  public leaveGame(gameId:string):Promise<boolean> {
+  public leaveGame(gameId: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       this.delete(`games/${gameId}/players`).subscribe(response => {
         console.log(response);
@@ -106,7 +104,7 @@ export class GameApi extends Connection {
     });
   }
 
-  public gameTiles(gameId:string, matched?:boolean):Promise<Tile[]> {
+  public gameTiles(gameId: string, matched?: boolean): Promise<Tile[]> {
     const params = [];
 
     if (matched !== null) {
@@ -126,7 +124,7 @@ export class GameApi extends Connection {
     });
   }
 
-  public matchTiles(gameId:string, tile1Id:string, tile2Id:string):Promise<boolean> {
+  public matchTiles(gameId: string, tile1Id: string, tile2Id: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       this.put(`games/${gameId}/tiles`, {
         tile1Id: tile1Id,

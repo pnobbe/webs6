@@ -3,22 +3,22 @@ import {Router} from '@angular/router';
 import {ApiService} from '../api/api.service';
 
 @Component({
-  selector: 'menu',
+  selector: 'app-menu-selector',
   templateUrl: './menu.component.html'
 })
 export class MenuComponent implements OnInit {
   public title = 'Space Mayhem';
 
-  constructor(private router:Router, private api:ApiService) {
+  constructor(private router: Router, private api: ApiService) {
   }
 
-  ngOnInit():void {
+  ngOnInit(): void {
     if (this.api.users.email == null) {
       this.router.navigate(['login']);
     }
   }
 
-  logout():void {
+  logout(): void {
     this.api.users.logout();
     this.router.navigate(['login']);
   }
