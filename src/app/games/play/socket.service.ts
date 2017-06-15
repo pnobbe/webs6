@@ -21,7 +21,6 @@ export class SocketService {
 
   private create(name:string) {
     this.counter++;
-
     let observable = new Observable(observer => {
 
       this.socket.on(name, (data) => {

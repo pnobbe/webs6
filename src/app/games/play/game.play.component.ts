@@ -2,6 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {ApiService} from "../../api/api.service";
 import {Game} from "../../models/game";
 import {ActivatedRoute} from "@angular/router";
+import {SocketService} from "./socket.service";
 
 @Component({
   selector: "app-game-play",
@@ -12,15 +13,17 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class GamePlayComponent implements OnInit {
 
-  game: Game;
+  game:Game;
+  sockets:SocketService;
 
-  constructor(private api: ApiService, private route: ActivatedRoute) {
+  constructor(private api:ApiService, private route:ActivatedRoute) {
   }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       console.log(params["id"]);
 
+      this.sockets = new SocketService(params["id"]);
       // load data
       this.api.games.getGame(params["id"]).then(game => {
         if (game == null) {
@@ -28,7 +31,6 @@ export class GamePlayComponent implements OnInit {
         }
 
         // do shit
-
 
 
       }).catch(err => {
@@ -45,6 +47,10 @@ export class GamePlayComponent implements OnInit {
     // match -> redraw board
 
     // This page is the BOARD, the lobby waiting for a game to start & the detail page -> as it is the same as the lobby
+  }
+
+  ngOnDestroy() {
+    this.sockets.close()
   }
 
 }
