@@ -22,6 +22,9 @@ import {ApiService} from "../api/api.service";
 })
 export class LoginModule {
 
+  public static get redirectPath():string {
+    return "games"
+  }
 }
 
 export const loginRoutes = <Routes>[

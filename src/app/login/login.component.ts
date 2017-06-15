@@ -1,6 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {ApiService} from "../api/api.service";
 import {Router} from "@angular/router";
+import {LoginModule} from "./login.module";
 
 @Component({
   selector: "app-login",
@@ -15,8 +16,9 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     if (this.api.users.isLoggedIn) {
-      this.router.navigate(["/"]);
+      this.router.navigate([LoginModule.redirectPath]);
     }
   }
 
