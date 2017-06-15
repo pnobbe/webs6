@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Params, Router} from '@angular/router';
-import {ApiService} from '../api/api.service';
+import {Component, OnInit} from "@angular/core";
+import {ActivatedRoute, Params, Router} from "@angular/router";
+import {ApiService} from "../api/api.service";
 
 @Component({
-  template: ''
+  template: ""
 })
 export class LoginCallbackComponent implements OnInit {
 
@@ -13,8 +13,8 @@ export class LoginCallbackComponent implements OnInit {
   ngOnInit() {
     this.route.queryParams.subscribe((params: Params) => {
 
-      this.api.users.login(params['username'], params['token']);
-      this.router.navigate(['games']);
+      this.api.users.login(params["username"], params["token"]);
+      this.router.navigate(["games"]);
     });
   }
 

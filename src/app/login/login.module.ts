@@ -1,10 +1,10 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {Routes} from '@angular/router';
-import {BrowserModule} from '@angular/platform-browser';
-import {LoginCallbackComponent} from './callback.component';
-import {LoginComponent} from './login.component';
-import {ApiService} from '../api/api.service';
+import {NgModule} from "@angular/core";
+import {CommonModule} from "@angular/common";
+import {Routes} from "@angular/router";
+import {BrowserModule} from "@angular/platform-browser";
+import {LoginCallbackComponent} from "./callback.component";
+import {LoginComponent} from "./login.component";
+import {ApiService} from "../api/api.service";
 
 
 @NgModule({
@@ -26,11 +26,11 @@ export class LoginModule {
 
 export const loginRoutes = <Routes>[
   {
-    path: '',
+    path: "",
     component: LoginComponent
   },
   {
-    path: 'callback',
+    path: "callback",
     component: LoginCallbackComponent
   }
 ];

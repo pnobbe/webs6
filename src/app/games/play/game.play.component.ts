@@ -1,13 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {ApiService} from '../../api/api.service';
-import {Game} from '../../models/game';
-import {ActivatedRoute} from '@angular/router';
+import {Component, OnInit} from "@angular/core";
+import {ApiService} from "../../api/api.service";
+import {Game} from "../../models/game";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
-  selector: 'app-game-play-selector',
-  templateUrl: './game.play.component.html',
+  selector: "app-game-play",
+  templateUrl: "./game.play.component.html",
   styleUrls: [
-    './game.play.component.css'
+    "./game.play.component.scss"
   ]
 })
 export class GamePlayComponent implements OnInit {
@@ -19,7 +19,7 @@ export class GamePlayComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      console.log(params['id']);
+      console.log(params["id"]);
 
       // load data
 

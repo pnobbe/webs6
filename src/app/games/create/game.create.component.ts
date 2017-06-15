@@ -1,14 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {Game} from 'app/models/game';
-import {GameTemplate} from 'app/models/game-template';
-import {ApiService} from 'app/api/api.service';
-import {Router} from '@angular/router';
+import {Component, OnInit} from "@angular/core";
+import {Game} from "app/models/game";
+import {GameTemplate} from "app/models/game-template";
+import {ApiService} from "app/api/api.service";
+import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-game-create-selector',
-  templateUrl: './game.create.component.html',
+  selector: "app-game-create",
+  templateUrl: "./game.create.component.html",
   styleUrls: [
-    './game.create.component.css',
+    "./game.create.component.scss",
   ]
 })
 export class GameCreateComponent implements OnInit {
@@ -30,9 +30,9 @@ export class GameCreateComponent implements OnInit {
   onSubmit() {
     this.api.games.createGame(this.model.gameTemplate.id, this.model.minPlayers, this.model.maxPlayers).then(game => {
       if (game == null) {
-        return alert('Something went wrong!');
+        return alert("Something went wrong!");
       }
-      this.router.navigate(['games']);
+      this.router.navigate(["games"]);
     }).catch(err => {
       // TODO err.errors contains array of errors. show beautiful
       alert(err);

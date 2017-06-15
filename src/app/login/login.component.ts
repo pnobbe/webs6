@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {ApiService} from '../api/api.service';
-import {Router} from '@angular/router';
+import {Component, OnInit} from "@angular/core";
+import {ApiService} from "../api/api.service";
+import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-login-selector',
-  templateUrl: './login.component.html',
+  selector: "app-login",
+  templateUrl: "./login.component.html",
   styleUrls: [
-    './login.component.css'
+    "./login.component.scss"
   ]
 })
 export class LoginComponent implements OnInit {
@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.api.users.isLoggedIn) {
-      this.router.navigate(['/']);
+      this.router.navigate(["/"]);
     }
   }
 

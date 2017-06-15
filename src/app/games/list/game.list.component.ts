@@ -1,14 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 // Services
-import {ApiService} from 'app/api/api.service';
-import {Game} from 'app/models/game';
-import {Router} from '@angular/router';
+import {ApiService} from "app/api/api.service";
+import {Game} from "app/models/game";
+import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-game-list-selector',
-  templateUrl: './game.list.component.html',
+  selector: "app-game-list",
+  templateUrl: "./game.list.component.html",
   styleUrls: [
-    './game.list.component.css',
+    "./game.list.component.scss",
   ]
 })
 export class GameListComponent implements OnInit {
@@ -40,12 +40,12 @@ export class GameListComponent implements OnInit {
   }
 
   details(game: Game) {
-    console.log('Show a div somewhere on page with all game info');
-    alert('see console');
+    console.log("Show a div somewhere on page with all game info");
+    alert("see console");
   }
 
   play(game: Game) {
-    this.router.navigate(['games', 'play', game._id]);
+    this.router.navigate(["games", "play", game._id]);
   }
 
   leave(game: Game) {
@@ -60,7 +60,7 @@ export class GameListComponent implements OnInit {
   start(game: Game) {
     this.api.games.startGame(game._id).then(success => {
       if (success === true) {
-        game.state = 'playing';
+        game.state = "playing";
         game.startedOn = Date.now().toString();
       }
     });

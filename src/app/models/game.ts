@@ -1,7 +1,7 @@
-import {User} from './user';
-import {GameTemplate} from './game-template';
-import {Tile} from './tile';
-import {ApiService} from '../api/api.service';
+import {User} from "./user";
+import {GameTemplate} from "./game-template";
+import {Tile} from "./tile";
+import {ApiService} from "../api/api.service";
 
 export class Game {
   _id: string;
@@ -39,35 +39,35 @@ export class Game {
 
   get canJoin(): boolean {
     return this.players.length < this.maxPlayers
-      && this.state === 'open'
+      && this.state === "open"
       && !this.curUserInGame();
   }
 
   get canStart(): boolean {
     return this.createdBy._id === ApiService.user_email
-      && this.state === 'open'
+      && this.state === "open"
       && this.players.length >= this.minPlayers;
   }
 
   get canPlay(): boolean {
     return this.curUserInGame()
-      && this.state === 'playing';
+      && this.state === "playing";
   }
 
   get canLobby(): boolean {
     return this.curUserInGame()
-      && this.state === 'open';
+      && this.state === "open";
   }
 
   get canLeave(): boolean {
     return this.curUserInGame()
       // && this.createdBy._id !== ApiService.user_email
-      && this.state === 'open';
+      && this.state === "open";
   }
 
   get canDelete(): boolean {
     return this.createdBy._id === ApiService.user_email
-      && ['open', 'finished'].indexOf(this.state) > -1;
+      && ["open", "finished"].indexOf(this.state) > -1;
   }
 
   private inGame(email: String): boolean {
