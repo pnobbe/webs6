@@ -1,5 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-// Services
+import {ActivatedRoute, Params} from "@angular/router";
 import {ApiService} from "app/api/api.service";
 import {Game} from "app/models/game";
 import {Router} from "@angular/router";
@@ -15,15 +15,23 @@ export class GameListComponent implements OnInit {
 
   games: Game[];
 
+  status = "";
 
-  constructor(private api: ApiService, private router: Router) {
+  constructor(private api: ApiService, private router: Router, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
     const self = this;
-    this.api.games.getGames().then(games => {
-      this.games = games;
+
+    this.route.params.subscribe(params => {
+      if (params["status"]) {
+        status = params["status"];
+      }
+      this.api.games.getGames().then(games => {
+        this.games = games;
+      });
     });
+
 
     // TODO wait for socket calls -> on ANY socket call -> refresh
   }
@@ -73,6 +81,14 @@ export class GameListComponent implements OnInit {
         game.players.push(self.api.users.getMe());
       }
     });
+  }
+
+  getStatus() {
+    return status;
+  }
+
+  getUser() {
+    return this.api.users.getMe()._id;
   }
 
 }

@@ -4,6 +4,12 @@
     <div class="col-md-12">
       <div class="panel panel-default">
         <div class="panel-heading">Games list</div>
+        <ul>
+          <li><a routerLink="/games/open" routerLinkActive="active">Open games</a></li>
+          <li><a routerLink="/games/playing" routerLinkActive="active">Started games</a></li>
+          <li><a routerLink="/games/finished" routerLinkActive="active">Finished games</a></li>
+          <li><a routerLink="/games/mine" routerLinkActive="active">My games</a></li>
+        </ul>
         <div class="horizontally-scrollable">
           <table class="table">
             <tr class="info">
@@ -15,7 +21,7 @@
               <th>Created By</th>
               <th>Players</th>
             </tr>
-            <tr *ngFor="let game of games">
+            <tr *ngFor="let game of games | gameFilter : getStatus(): getUser()">
               <td>{{game.gameTemplate.id}}</td>
               <td>{{game.state}}</td>
               <td>{{game.createdOn | date: 'd-M-y HH:mm:ss'}}</td>
