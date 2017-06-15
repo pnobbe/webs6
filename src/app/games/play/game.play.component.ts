@@ -22,10 +22,20 @@ export class GamePlayComponent implements OnInit {
       console.log(params["id"]);
 
       // load data
+      this.api.games.getGame(params["id"]).then(game => {
+        if (game == null) {
+          return alert("Something went wrong!");
+        }
 
-      // do shit
+        // do shit
 
 
+
+      }).catch(err => {
+        // TODO err.errors contains array of errors. show beautiful
+        alert(err);
+        console.log(err);
+      });
     });
 
     // TODO wait for socket calls ->

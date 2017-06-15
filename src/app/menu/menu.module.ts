@@ -14,7 +14,7 @@ import {RouterModule} from "@angular/router";
     MenuComponent
   ],
   providers: [],
-  exports: []
+  exports: [MenuComponent]
 })
 
 export class MenuModule {

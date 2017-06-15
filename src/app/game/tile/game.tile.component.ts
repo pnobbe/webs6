@@ -1,4 +1,5 @@
 import {Component, OnInit} from "@angular/core";
+import {Tile} from "../../models/tile";
 
 @Component({
   selector: "app-tile",
@@ -7,6 +8,8 @@ import {Component, OnInit} from "@angular/core";
 })
 export class GameTileComponent implements OnInit {
 
+  tile: Tile;
+  
   constructor() {
   }
 

@@ -13,7 +13,7 @@ import {MenuModule} from "../menu/menu.module";
   ],
   declarations: [GameBoardComponent, GameTileComponent],
   providers: [],
-  exports: []
+  exports: [GameBoardComponent]
 })
 export class GameModule {
 }
