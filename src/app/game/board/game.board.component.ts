@@ -1,5 +1,5 @@
-import {Component, OnInit} from "@angular/core";
-import {Game} from "../../models/game";
+import {Component, Input, OnInit} from "@angular/core";
+import {Tile} from "../../models/tile";
 
 @Component({
   selector: "app-board",
@@ -8,7 +8,8 @@ import {Game} from "../../models/game";
 })
 export class GameBoardComponent implements OnInit {
 
-  game: Game;
+  @Input() tiles: Tile[];
+  @Input() clickable: boolean;
 
   constructor() { }
 

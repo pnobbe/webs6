@@ -8,6 +8,7 @@ import {FormsModule} from "@angular/forms";
 import {GamePlayComponent} from "./play/game.play.component";
 import {MenuModule} from "../menu/menu.module";
 import {BrowserModule} from "@angular/platform-browser";
+import {GameModule} from "../game/game.module";
 
 @NgModule({
 
@@ -17,7 +18,7 @@ import {BrowserModule} from "@angular/platform-browser";
     MenuModule,
     BrowserModule,
     RouterModule,
-
+    GameModule,
   ],
   declarations: [
     GameListComponent,

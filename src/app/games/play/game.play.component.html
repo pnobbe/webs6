@@ -1,2 +1,29 @@
 <app-menu></app-menu>
 
+<div *ngIf="game; else loading">
+    <div class="panel-heading">Game board for {{game._id}}</div>
+
+    <h1>Players</h1>
+    <ul *ngFor="let player of game.players">
+      <li>{{player.name}}</li>
+    </ul>
+
+    <!-- Draw lobby -->
+    <div *ngIf="game.state === 'open'">
+      <h1>Lobby</h1>
+      <app-board [tiles]="tiles">
+      </app-board>
+    </div>
+
+    <!-- Draw board -->
+    <div *ngIf="game.state === 'playing'">
+      <h1>Board</h1>
+      <app-board [tiles]="tiles">
+      </app-board>
+    </div>
+
+    <!-- Draw finished -->
+    <div *ngIf="game.state === 'finished'">
+      <h1>Game is finished!</h1>
+    </div>
+</div>

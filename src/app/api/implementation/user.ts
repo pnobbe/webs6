@@ -1,6 +1,6 @@
-import {Connection} from './connection';
-import {Http} from '@angular/http';
-import {User} from '../../models/user';
+import {Connection} from "./connection";
+import {Http} from "@angular/http";
+import {User} from "../../models/user";
 
 export class UserApi extends Connection {
 
@@ -10,7 +10,7 @@ export class UserApi extends Connection {
   }
 
   get loginUrl(): string {
-    return this.url('auth/avans') + `/?callbackUrl=${this.document.location.origin}/login/callback`;
+    return this.url("auth/avans") + `/?callbackUrl=${this.document.location.origin}/login/callback`;
   }
 
 

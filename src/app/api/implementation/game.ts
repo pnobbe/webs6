@@ -1,8 +1,6 @@
-import {GameState} from "../../models/game-state";
-import {GameTemplate} from "../../models/game-template";
 import {Game} from "../../models/game";
 import {Connection} from "./connection";
-import {Http} from '@angular/http';
+import {Http} from "@angular/http";
 import {Tile} from "../../models/tile";
 
 export class GameApi extends Connection {
@@ -12,11 +10,10 @@ export class GameApi extends Connection {
     super(http);
   }
 
-
   public getGames(): Promise<Game[]> {
-    let games: Game[] = [];
+    const games: Game[] = [];
     return new Promise((resolve, reject) => {
-      this.get('games').subscribe(response => {
+      this.get("games").subscribe(response => {
         if (response.ok) {
           response.json().forEach(object => games.push(new Game(object)));
           return resolve(games);
@@ -29,10 +26,10 @@ export class GameApi extends Connection {
 
   public createGame(template: string, minPlayers: number, maxPlayers: number): Promise<Game> {
     return new Promise((resolve, reject) => {
-      this.post('games', {
-        'templateName': template,
-        'minPlayers': minPlayers,
-        'maxPlayers': maxPlayers
+      this.post("games", {
+        "templateName": template,
+        "minPlayers": minPlayers,
+        "maxPlayers": maxPlayers
       }).subscribe(response => {
         if (response.ok) {
           const game = new Game(response.json());

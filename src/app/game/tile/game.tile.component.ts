@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, Input, OnInit} from "@angular/core";
 import {Tile} from "../../models/tile";
 
 @Component({
@@ -8,8 +8,8 @@ import {Tile} from "../../models/tile";
 })
 export class GameTileComponent implements OnInit {
 
-  tile: Tile;
-  
+  @Input() tile: Tile;
+
   constructor() {
   }
 

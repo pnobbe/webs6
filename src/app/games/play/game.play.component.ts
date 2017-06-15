@@ -3,6 +3,7 @@ import {ApiService} from "../../api/api.service";
 import {Game} from "../../models/game";
 import {ActivatedRoute} from "@angular/router";
 import {SocketService} from "./socket.service";
+import {Tile} from "../../models/tile";
 
 @Component({
   selector: "app-game-play",
@@ -13,10 +14,12 @@ import {SocketService} from "./socket.service";
 })
 export class GamePlayComponent implements OnInit {
 
-  game:Game;
-  sockets:SocketService;
+  sockets: SocketService;
+  game: Game;
+  tiles: Tile[];
 
-  constructor(private api:ApiService, private route:ActivatedRoute) {
+
+  constructor(private api: ApiService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -25,18 +28,32 @@ export class GamePlayComponent implements OnInit {
 
       this.sockets = new SocketService(params["id"]);
       // load data
-      this.api.games.getGame(params["id"]).then(game => {
-        if (game == null) {
+      this.api.games.getGame(params["id"]).then(newGame => {
+        if (newGame == null) {
           return alert("Something went wrong!");
         }
 
-        // do shit
+        this.game = newGame;
+        console.dir(this.game);
 
-
+        // get tiles
+        if (this.game.state === "open") {
+          // game is in lobby, get template
+          this.api.templates.getTemplate(this.game.gameTemplate.id).then(template => {
+            this.tiles = template.tiles;
+          }).catch(err => {
+            console.error(err);
+          });
+        } else if (this.game.state === "playing") {
+          // game is in progress, get game times
+          this.api.games.gameTiles(this.game._id, false).then(tiles => {
+            this.tiles = tiles;
+          }).catch(err => {
+            console.error(err);
+          });
+        }
       }).catch(err => {
-        // TODO err.errors contains array of errors. show beautiful
-        alert(err);
-        console.log(err);
+        console.error(err);
       });
     });
 

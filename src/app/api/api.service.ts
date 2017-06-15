@@ -1,15 +1,14 @@
-import {Inject, Injectable} from '@angular/core';
-import {DOCUMENT} from '@angular/platform-browser';
-import {Http} from '@angular/http';
-import {GameApi} from './implementation/game';
-import {UserApi} from './implementation/user';
-import {TemplateApi} from './implementation/templates';
-
+import {Inject, Injectable} from "@angular/core";
+import {DOCUMENT} from "@angular/platform-browser";
+import {Http} from "@angular/http";
+import {GameApi} from "./implementation/game";
+import {UserApi} from "./implementation/user";
+import {TemplateApi} from "./implementation/templates";
 
 @Injectable()
 export class ApiService {
 
-  public static user_email = '';
+  public static user_email = "";
 
   public templates: TemplateApi;
   public games: GameApi;

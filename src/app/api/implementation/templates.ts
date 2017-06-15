@@ -1,7 +1,7 @@
-import {GameState} from '../../models/game-state';
-import {GameTemplate} from '../../models/game-template';
-import {Connection} from './connection';
-import {Http} from '@angular/http';
+import {GameState} from "../../models/game-state";
+import {GameTemplate} from "../../models/game-template";
+import {Connection} from "./connection";
+import {Http} from "@angular/http";
 
 export class TemplateApi extends Connection {
 
@@ -16,7 +16,7 @@ export class TemplateApi extends Connection {
 
       const gameTemplates: GameTemplate[] = [];
 
-      this.get('gameTemplates').subscribe(response => {
+      this.get("gameTemplates").subscribe(response => {
         if (response.ok) {
           response.json().forEach(object => gameTemplates.push(new GameTemplate(object)));
           return resolve(gameTemplates);
@@ -43,7 +43,7 @@ export class TemplateApi extends Connection {
   public getStates(): Promise<GameState[]> {
     return new Promise((resolve, reject) => {
       const gameStates: GameState[] = [];
-      this.get('gamestatus').subscribe(response => {
+      this.get("gamestatus").subscribe(response => {
         if (response.ok) {
           response.json().forEach(object => gameStates.push(new GameState(object)));
           return resolve(gameStates);
