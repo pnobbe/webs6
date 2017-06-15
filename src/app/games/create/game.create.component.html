@@ -20,13 +20,19 @@
               <label for="template">Template</label>
               <select class="form-control" id="template" name="template" required
                       [(ngModel)]="model.gameTemplate.id" #template="ngModel">
-                <option *ngFor="let template of gameTemplates" [value]="template.id">{{template.id}}</option>
+                <option *ngFor="let template of gameTemplates | values" [value]="template">{{template}}</option>
               </select>
             </div>
 
             <button type="submit" class="btn btn-primary" [disabled]="!createForm.form.valid">Submit</button>
             <button type="button" class="btn btn-default" (click)="newGame();createForm.reset();">Reset</button>
           </form>
+
+          <div *ngIf="gameTemplates[model.gameTemplate.id]; else elseBlock">
+            <app-board [tiles]="gameTemplates[model.gameTemplate.id].tiles">
+            </app-board>
+          </div>
+          <ng-template #elseBlock>No board selected</ng-template>
         </div>
       </div>
     </div>

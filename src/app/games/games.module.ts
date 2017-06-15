@@ -9,6 +9,7 @@ import {GamePlayComponent} from "./play/game.play.component";
 import {MenuModule} from "../menu/menu.module";
 import {BrowserModule} from "@angular/platform-browser";
 import {GameModule} from "../game/game.module";
+import {ValuePipe} from "./create/game.create.transform.pipe";
 
 @NgModule({
 
@@ -24,7 +25,8 @@ import {GameModule} from "../game/game.module";
     GameListComponent,
     GameCreateComponent,
     GamePlayComponent,
-    GameListFilterPipe
+    GameListFilterPipe,
+    ValuePipe
   ],
   providers: [],
   exports: []

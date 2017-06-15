@@ -16,6 +16,7 @@ export class GameCreateComponent implements OnInit {
 
   model: Game;
 
+
   constructor(private api: ApiService, private router: Router) {
   }
 
@@ -23,7 +24,11 @@ export class GameCreateComponent implements OnInit {
     this.newGame();
 
     this.api.templates.getTemplates().then(templates => {
-      this.gameTemplates = templates;
+      this.gameTemplates = [];
+      for (const entry of templates) {
+        this.gameTemplates[entry.id] = entry;
+      }
+      console.log(this.gameTemplates);
     });
   }
 
