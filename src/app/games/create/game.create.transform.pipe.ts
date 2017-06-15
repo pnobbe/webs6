@@ -1,7 +1,7 @@
 import { PipeTransform, Pipe } from "@angular/core";
 
-@Pipe({name: "values"})
-export class ValuePipe implements PipeTransform {
+@Pipe({name: "keys"})
+export class KeyPipe implements PipeTransform {
 
   transform(array: any[]): any {
     const values = [];

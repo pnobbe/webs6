@@ -20,7 +20,7 @@
               <label for="template">Template</label>
               <select class="form-control" id="template" name="template" required
                       [(ngModel)]="model.gameTemplate.id" #template="ngModel">
-                <option *ngFor="let template of gameTemplates | values" [value]="template">{{template}}</option>
+                <option *ngFor="let template of gameTemplates | keys" [value]="template">{{template}}</option>
               </select>
             </div>
 

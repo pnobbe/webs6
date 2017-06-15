@@ -9,7 +9,7 @@ import {GamePlayComponent} from "./play/game.play.component";
 import {MenuModule} from "../menu/menu.module";
 import {BrowserModule} from "@angular/platform-browser";
 import {GameModule} from "../game/game.module";
-import {ValuePipe} from "./create/game.create.transform.pipe";
+import {KeyPipe} from "./create/game.create.transform.pipe";
 
 @NgModule({
 
@@ -26,7 +26,7 @@ import {ValuePipe} from "./create/game.create.transform.pipe";
     GameCreateComponent,
     GamePlayComponent,
     GameListFilterPipe,
-    ValuePipe
+    KeyPipe
   ],
   providers: [],
   exports: []
