@@ -114,7 +114,7 @@ export class GameApi extends Connection {
       this.get(`games/${gameId}/tiles${suffix}`).subscribe(response => {
         if (response.ok) {
           const tiles = [];
-          response.json().forEach(object => tiles.push(new Game(object)));
+          response.json().forEach(object => tiles.push(new Tile(object)));
           return resolve(tiles);
         }
         reject();
