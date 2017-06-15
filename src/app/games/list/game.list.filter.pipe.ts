@@ -22,7 +22,8 @@ export class GameListFilterPipe implements PipeTransform {
     }
 
     if (status === 'mine') {
-      return newGames;
+      return newGames.filter(
+        game => game.state !== "finished");
     }
     return newGames.filter(
       game => game.state === status);
