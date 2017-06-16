@@ -12,8 +12,8 @@ import {Router} from "@angular/router";
   ]
 })
 export class GameCreateComponent implements OnInit {
-  gameTemplates: GameTemplate[] = [];
 
+  gameTemplates: GameTemplate[] = [];
   model: Game;
 
   constructor(private api: ApiService, private router: Router) {

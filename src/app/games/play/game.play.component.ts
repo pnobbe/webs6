@@ -47,6 +47,7 @@ export class GamePlayComponent implements OnInit {
         } else if (this.game.state === "playing") {
           // game is in progress, get game times
           this.api.games.gameTiles(this.game._id, false).then(tiles => {
+            console.dir(tiles);
             this.tiles = tiles;
           }).catch(err => {
             console.error(err);

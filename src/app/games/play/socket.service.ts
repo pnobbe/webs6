@@ -1,27 +1,22 @@
-import {DOCUMENT} from '@angular/platform-browser';
-import {Http} from '@angular/http';
-import {GameApi} from './../../api/implementation/game';
-import {UserApi} from './../../api/implementation/user';
-import {TemplateApi} from './../../api/implementation/templates';
 import {Observable} from "rxjs/Observable";
-import * as io from 'socket.io-client';
+import * as io from "socket.io-client";
 
 export class SocketService {
 
-  private url = 'http://mahjongmayhem.herokuapp.com?gameId=';
+  private url = "http://mahjongmayhem.herokuapp.com?gameId=";
   // shared socket
   private socket;
 
   // counting usage (Semaphore style)
   private counter = 0;
 
-  constructor(private gameId:string) {
+  constructor(private gameId: string) {
     this.socket = io(this.url + gameId);
   }
 
-  private create(name:string) {
+  private create(name: string) {
     this.counter++;
-    let observable = new Observable(observer => {
+    const observable = new Observable(observer => {
 
       this.socket.on(name, (data) => {
         observer.next(data);
