@@ -26,7 +26,6 @@ export class Tile {
     const red = (this.zPos + 1) * 50;
     const green = (this.zPos + 1) * 0;
     const blue = (this.zPos + 1) * 0;
-    console.log("rgb(" + red + "," + green + "," + blue + ");stroke-width:1;stroke:rgb(0,0,0);");
     return "fill: rgb(" + red + "," + green + "," + blue + "); stroke-width:1;stroke:rgb(0,0,0);";
   }
 
