@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from "@angular/core";
 import {Tile} from "../../models/tile";
 import {DomSanitizer} from "@angular/platform-browser";
+import {ApiService} from "../../api/api.service";
 
 @Component({
   selector: "app-board",
@@ -13,7 +14,7 @@ export class GameBoardComponent implements OnInit {
   @Input() clickable: boolean;
   private sanitizer: DomSanitizer;
 
-  constructor(private sanitizer1: DomSanitizer) {
+  constructor(private sanitizer1: DomSanitizer, private api: ApiService) {
     this.sanitizer = sanitizer1;
   }
 
@@ -22,9 +23,12 @@ export class GameBoardComponent implements OnInit {
   }
 
   getColor(tile: Tile) {
-    const color = tile.getColor();
+    return this.sanitizer.bypassSecurityTrustStyle(tile.getColor());
+  }
 
-    return this.sanitizer.bypassSecurityTrustStyle(color);
+  getImageURL(tile: Tile) {
+    const url = this.api.sprites.getSprite(tile);
+    return url;
   }
 
 }

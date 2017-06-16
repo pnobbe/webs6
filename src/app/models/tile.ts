@@ -15,18 +15,26 @@ export class Tile {
   }
 
   getXPos() {
-    return this.xPos * 20;
+    return (this.xPos * (this.getWidth() / 2.2))  + (this.zPos * this.getWidth() / 8) + 50;
   }
 
   getYPos() {
-    return (this.yPos * 20) - (this.zPos * 10);
+    return (this.yPos * (this.getHeight() / 2.2)) - (this.zPos * this.getHeight() / 8);
+  }
+
+  getHeight() {
+    return this.getWidth() * 1.37;
+  }
+
+  getWidth() {
+    return 75;
   }
 
   getColor() {
     const red = (this.zPos + 1) * 50;
     const green = (this.zPos + 1) * 0;
     const blue = (this.zPos + 1) * 0;
-    return "fill: rgb(" + red + "," + green + "," + blue + "); stroke-width:1;stroke:rgb(0,0,0);";
+    return "fill: rgb(" + red + "," + green + "," + blue + ");";
   }
 
 }

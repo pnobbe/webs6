@@ -3,15 +3,14 @@
     <div class="col-md-12">
       <div class="panel panel-default">
         <div *ngIf="tiles">
-          <svg width="1500" height="1000">
+          <svg width="1500" height="1000" xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <filter id="f3" x="0" y="0" width="200%" height="200%">
-                <feOffset result="offOut" in="SourceAlpha" dx="5" dy="5" />
-                <feGaussianBlur result="blurOut" in="offOut" stdDeviation="10" />
-                <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+              <filter id="f3" x="-100%" y="-100%" width="300%" height="300%">
+                <feDropShadow dx="-2" dy="2" stdDeviation="3"/>
               </filter>
             </defs>
-            <rect *ngFor="let tile of tiles | gameTileOrderBy;" [attr.x]="tile.getXPos()" [attr.y]="tile.getYPos()" [attr.style]="getColor(tile)" height="40" width="40" filter="url(#f3)"></rect>
+            <image *ngFor="let tile of tiles | gameTileOrderBy;" attr.xlink:href="{{getImageURL(tile)}}"
+                   [attr.x]="tile.getXPos()" [attr.y]="tile.getYPos()" [attr.style]="getColor(tile)" [attr.height]="tile.getHeight()" [attr.width]="tile.getWidth()" filter="url(#f3)"/>
           </svg>
         </div>
       </div>

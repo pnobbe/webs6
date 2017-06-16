@@ -12,11 +12,22 @@ export class GameTileOrderBy implements PipeTransform {
         return -1;
       } else if (a.zPos > b.zPos) {
         return 1;
-      } else {
-        return 0;
       }
+
+      if (a.xPos < b.xPos) {
+        return 1;
+      } else if (a.xPos > b.xPos) {
+        return -1;
+      }
+
+      if (a.yPos < b.yPos) {
+        return -1;
+      } else if (a.yPos > b.yPos) {
+        return 1;
+      }
+
+      return 0;
     });
-    console.log(array);
     return array;
   }
 }
