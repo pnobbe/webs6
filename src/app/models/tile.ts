@@ -19,7 +19,7 @@ export class Tile {
   }
 
   getYPos() {
-    return (this.yPos * (this.getHeight() / 2.2)) - (this.zPos * this.getHeight() / 8);
+    return (this.yPos * (this.getHeight() / 2.25)) - (this.zPos * this.getHeight() / 8);
   }
 
   getHeight() {
