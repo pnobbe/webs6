@@ -10,6 +10,7 @@ import {MenuModule} from "../menu/menu.module";
 import {BrowserModule} from "@angular/platform-browser";
 import {GameModule} from "../game/game.module";
 import {KeyPipe} from "./create/game.create.transform.pipe";
+import {MaterialDesignModule} from "../materialdesign.module";
 
 @NgModule({
 
@@ -20,6 +21,7 @@ import {KeyPipe} from "./create/game.create.transform.pipe";
     BrowserModule,
     RouterModule,
     GameModule,
+    MaterialDesignModule
   ],
   declarations: [
     GameListComponent,

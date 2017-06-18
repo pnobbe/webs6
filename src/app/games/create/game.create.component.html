@@ -1,4 +1,4 @@
-<app-menu></app-menu>
+
 <div class="row">
   <div class="col-md-12">
     <div class="panel panel-default">
@@ -23,7 +23,7 @@
             </select>
           </div>
 
-          <button type="submit" class="btn btn-primary" [disabled]="!createForm.form.valid">Submit</button>
+          <button type="submit"  md-raised-button color="primary" [disabled]="!createForm.form.valid">Submit</button>
           <button type="button" class="btn btn-default" (click)="newGame();createForm.reset();">Reset</button>
         </form>
 

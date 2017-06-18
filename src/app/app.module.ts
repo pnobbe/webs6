@@ -8,6 +8,8 @@ import {GameModule} from "./game/game.module";
 import {gameRoutes, GamesModule} from "./games/games.module";
 import {MenuModule} from "./menu/menu.module";
 import {LoginModule, loginRoutes} from "./login/login.module";
+import "hammerjs";
+import {MaterialDesignModule} from "./materialdesign.module";
 
 const appRoutes: Routes = <Routes>[
   {
@@ -15,14 +17,14 @@ const appRoutes: Routes = <Routes>[
     children: loginRoutes
   },
   {
-    path: "",
+    path: "games",
+    children: gameRoutes
+  },
+  {
+    path: "**",
     redirectTo: "/login",
     pathMatch: "full"
   },
-  {
-    path: "games",
-    children: gameRoutes
-  }
 
 
 ];
@@ -39,7 +41,8 @@ const appRoutes: Routes = <Routes>[
     GamesModule,
     GameModule,
     MenuModule,
-    LoginModule
+    LoginModule,
+    MaterialDesignModule
   ],
   providers: [ApiService], // its here because its a beautiful singleton.
   bootstrap: [

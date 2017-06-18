@@ -1,49 +1,49 @@
-<app-menu></app-menu>
 
 <div class="row">
   <div class="col-md-12">
     Games list
     <p>
-      <button class="btn btn-primary" routerLink="/games/open" routerLinkActive="active">Open games</button>
-      <button class="btn btn-primary" routerLink="/games/playing" routerLinkActive="active">Started games</button>
-      <button class="btn btn-primary" routerLink="/games/finished" routerLinkActive="active">Finished games</button>
-      <button class="btn btn-primary" routerLink="/games/mine" routerLinkActive="active">My games</button>
+      <button md-raised-button color="primary" routerLink="/games/open" routerLinkActive="active">Open games</button>
+      <button md-raised-button color="primary" routerLink="/games/playing" routerLinkActive="active">Started games
+      </button>
+      <button md-raised-button color="primary" routerLink="/games/finished" routerLinkActive="active">Finished games
+      </button>
+      <button md-raised-button color="primary" routerLink="/games/mine" routerLinkActive="active">My games</button>
     </p>
   </div>
 </div>
-<div class="row box">
-  <div class="col-md-12">
-    <table class="table">
-      <tr class="info">
-        <th>Game</th>
-        <th>State</th>
-        <th>Created On</th>
-        <th>Started On</th>
-        <th>Ended On</th>
-        <th>Created By</th>
-        <th>Players</th>
-        <th>Actions</th>
-      </tr>
-      <tr *ngFor="let game of games | gameFilter : getStatus(): getUser()">
-        <td>{{game.gameTemplate.id}}</td>
-        <td>{{game.state}}</td>
-        <td>{{game.createdOn | date: 'd-M-y HH:mm:ss'}}</td>
-        <td>{{game.startedOn | date: 'd-M-y HH:mm:ss'}}</td>
-        <td>{{game.endedOn | date: 'd-M-y HH:mm:ss'}}</td>
-        <td>{{game.createdBy.name}}</td>
-        <td>{{game.players.length}} / {{game.maxPlayers}}</td>
-        <td>
-          <div [hidden]="!game.hasActions">
-            <button class="btn btn-primary" *ngIf="game.canLobby" (click)="play(game)">Go to lobby</button>
-            <button class="btn btn-primary" *ngIf="game.canJoin" (click)="join(game)">Join</button>
-            <button class="btn btn-primary" *ngIf="game.canLeave" (click)="leave(game)">Leave</button>
-            <button class="btn btn-primary" *ngIf="game.canStart" (click)="start(game)">Start</button>
-            <button class="btn btn-primary" *ngIf="game.canPlay" (click)="play(game)">Play</button>
-            <button class="btn btn-primary" *ngIf="game.canDelete" (click)="delete(game)">Delete</button>
-            <button class="btn btn-primary" (click)="details(game)">Details</button>
-          </div>
-        </td>
-      </tr>
-    </table>
-  </div>
-</div>
+<table >
+  <thead>
+  <tr>
+    <th>Game</th>
+    <th>State</th>
+    <th>Created On</th>
+    <th>Started On</th>
+    <th>Ended On</th>
+    <th>Created By</th>
+    <th>Players</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tr grid-item *ngFor="let game of games | gameFilter : getStatus(): getUser()">
+    <td >{{game.gameTemplate.id}}</td>
+    <td>{{game.state}}</td>
+    <td>{{game.createdOn | date: 'd-M-y HH:mm:ss'}}</td>
+    <td>{{game.startedOn | date: 'd-M-y HH:mm:ss'}}</td>
+    <td>{{game.endedOn | date: 'd-M-y HH:mm:ss'}}</td>
+    <td>{{game.createdBy.name}}</td>
+    <td>{{game.players.length}} / {{game.maxPlayers}}</td>
+    <td>
+      <div [hidden]="!game.hasActions">
+        <button md-raised-button color="primary" *ngIf="game.canLobby" (click)="play(game)">Go to lobby</button>
+        <button md-raised-button color="primary" *ngIf="game.canJoin" (click)="join(game)">Join</button>
+        <button md-raised-button color="primary" *ngIf="game.canLeave" (click)="leave(game)">Leave</button>
+        <button md-raised-button color="primary" *ngIf="game.canStart" (click)="start(game)">Start</button>
+        <button md-raised-button color="primary" *ngIf="game.canPlay" (click)="play(game)">Play</button>
+        <button md-raised-button color="primary" *ngIf="game.canDelete" (click)="delete(game)">Delete</button>
+        <button md-raised-button color="primary" (click)="details(game)">Details</button>
+      </div>
+    </td>
+  </tr>
+</table>
+

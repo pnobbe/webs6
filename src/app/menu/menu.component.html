@@ -1,10 +1,10 @@
 <h1>{{title}}</h1>
-<button class="btn btn-primary" uiSref="games" routerLinkActive="active">Game list</button>
-<button class="btn btn-primary" routerLink="/games/create" routerLinkActive="active">Create Game</button>
-<button class="btn btn-primary" (click)="logout()">Log out</button>
-<label for="exampleSelect1">Select Theme</label>
-<select class="form-control" id="exampleSelect1">
-  <option>Default</option>
-  <option>Space</option>
-</select>
+<button md-raised-button color="primary" routerLink="/games" routerLinkActive="active">Game list</button>
+<button md-raised-button color="primary" routerLink="/games/create" routerLinkActive="active">Create Game</button>
+<button md-raised-button color="primary" (click)="logout()">Log out</button>
+<md-menu>  <!--#menu="mdMenu"-->
+  <button md-menu-item (click)="setTheme('space-theme')">Default</button>
+  <button md-menu-item (click)="setTheme('classic-theme')">Classic</button>
+</md-menu>
+
 <hr>

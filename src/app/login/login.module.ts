@@ -5,6 +5,7 @@ import {BrowserModule} from "@angular/platform-browser";
 import {LoginCallbackComponent} from "./callback.component";
 import {LoginComponent} from "./login.component";
 import {ApiService} from "../api/api.service";
+import {MaterialDesignModule} from "../materialdesign.module";
 
 
 @NgModule({
@@ -12,6 +13,7 @@ import {ApiService} from "../api/api.service";
   imports: [
     CommonModule,
     BrowserModule,
+    MaterialDesignModule
   ],
   declarations: [
     LoginCallbackComponent,
