@@ -18,7 +18,7 @@
     <!-- Draw board -->
     <div *ngIf="game.state === 'playing'">
       <h1>Board</h1>
-      <app-board [tiles]="tiles">
+      <app-board [tiles]="tiles" (onTileSelected)="onSelected($event)">
       </app-board>
     </div>
 

@@ -1,8 +1,7 @@
-import {Component, Input, OnInit} from "@angular/core";
+import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
 import {Tile} from "../../models/tile";
 import {DomSanitizer} from "@angular/platform-browser";
 import {ApiService} from "../../api/api.service";
-import {GameBoardComponent} from "../board/game.board.component";
 
 @Component({
   selector: "g[app-tile]",
@@ -10,17 +9,13 @@ import {GameBoardComponent} from "../board/game.board.component";
   styleUrls: ["./game.tile.component.scss"]
 })
 export class GameTileComponent implements OnInit {
-
+  @Output() onSelected = new EventEmitter<Tile>();
   @Input() tile: Tile;
-  private sanitizer: DomSanitizer;
   private selected: boolean;
   private size: number;
-  private board: GameBoardComponent;
 
-  constructor(private sanitizer1: DomSanitizer, private api: ApiService, private board1: GameBoardComponent) {
-    this.sanitizer = sanitizer1;
+  constructor(private sanitizer: DomSanitizer, private api: ApiService) {
     this.selected = false;
-    this.board = board1;
     this.size = 1;
   }
 
@@ -32,8 +27,7 @@ export class GameTileComponent implements OnInit {
   }
 
   get getImageURL(): string {
-    const url = this.api.sprites.getSprite(this.tile);
-    return url;
+    return this.api.sprites.getSprite(this.tile);
   }
 
   get getXPos(): number {
@@ -55,10 +49,9 @@ export class GameTileComponent implements OnInit {
   onClick(tile: Tile) {
     if (tile.tile) {
       console.log("Clicked " + tile.tile.suit + " " + tile.tile.name + " " + tile._id);
-      this.board.tryMatch(tile);
+      this.onSelected.emit(tile);
       return;
     }
-
     console.log("Tile is not clickable");
   }
 
