@@ -1,8 +1,7 @@
-import {Component, Input, OnInit} from "@angular/core";
+import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
 import {Tile} from "../../models/tile";
 import {DomSanitizer} from "@angular/platform-browser";
 import {ApiService} from "../../api/api.service";
-import {GamePlayComponent} from "../../games/play/game.play.component";
 
 @Component({
   selector: "app-board",
@@ -12,9 +11,10 @@ import {GamePlayComponent} from "../../games/play/game.play.component";
 export class GameBoardComponent implements OnInit {
 
   @Input() tiles: Tile[];
+  @Output() onTileSelected = new EventEmitter<Tile>();
   private selectedTile: Tile;
 
-  constructor(private sanitizer: DomSanitizer, private api: ApiService, private game: GamePlayComponent) {
+  constructor(private sanitizer: DomSanitizer, private api: ApiService) {
   }
 
   ngOnInit() {
@@ -29,17 +29,8 @@ export class GameBoardComponent implements OnInit {
     return 1000;
   }
 
-  tryMatch(tile: Tile) {
-    if (!this.selectedTile) {
-      this.selectedTile = tile;
-      console.log("Selected first tile.");
-    } else {
-      const selTile = this.selectedTile;
-      this.selectedTile = null;
-      if (selTile.tryMatch(tile)) {
-        this.game.match(selTile._id, tile._id);
-      }
-    }
+  onSelected(tile: Tile) {
+    this.onTileSelected.emit(tile);
   }
 
 }

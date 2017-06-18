@@ -14,7 +14,7 @@ export class Tile {
     Object.assign(this, values);
   }
 
-  tryMatch(tile: Tile): boolean {
+  matches(tile: Tile): boolean {
     if (this._id !== tile._id) {
       if (this.tile.suit === tile.tile.suit) {
         if (this.tile.name === tile.tile.name || (this.tile.matchesWholeSuit || tile.tile.matchesWholeSuit)) {

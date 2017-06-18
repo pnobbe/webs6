@@ -17,6 +17,7 @@ export class GamePlayComponent implements OnInit {
   sockets: SocketService;
   game: Game;
   tiles: Tile[];
+  selectedTile: Tile;
 
 
   constructor(private api: ApiService, private route: ActivatedRoute) {
@@ -45,18 +46,25 @@ export class GamePlayComponent implements OnInit {
       // match -> redraw board
       this.sockets.match().subscribe(data => {
         console.log(data);
-        this.splice(data[0]._id);
-        this.splice(data[1]._id);
+        this.tiles = this.tiles.filter(function (tile) {
+          return tile._id !== data[0]._id && tile._id !== data[1]._id;
+        });
       });
     });
   }
 
-  match(tileId1: string, tileId2: string) {
-    this.api.games.matchTiles(this.game._id, tileId1, tileId2).then(response => {
-      console.log(response);
-    }).catch(err => {
-      console.error(err);
-    });
+  onSelected(tile: Tile) {
+    if (!this.selectedTile) {
+      console.log("Selected first tile.");
+      this.selectedTile = tile;
+    } else {
+      console.log("Selected second tile.");
+      const selTile = this.selectedTile;
+      this.selectedTile = null;
+      if (selTile.matches(tile)) {
+        this.api.games.matchTiles(this.game._id, selTile._id, tile._id);
+      }
+    }
   }
 
   private getGameData(id: string) {
@@ -86,7 +94,9 @@ export class GamePlayComponent implements OnInit {
           this.api.games.gameTiles(this.game._id, true).then(matchedTiles => {
 
             for (let i = 0; i < matchedTiles.length; i++) {
-              this.splice(matchedTiles[i]._id);
+              this.tiles = this.tiles.filter(function (tile) {
+                return tile._id !== matchedTiles[i]._id;
+              });
             }
             // provide the framework with data
             console.log(this.tiles);
@@ -101,17 +111,7 @@ export class GamePlayComponent implements OnInit {
   }
 
   private splice(id: string) {
-    const result = this.tiles.filter(function (tile) {
-      return tile._id === id;
-    });
-    console.log(result);
-    for (let i = 0; i < result.length; i++) {
-      console.log(result[i]._id + " " + this.tiles[this.tiles.indexOf(result[i])]._id);
-      console.log(this.tiles.length);
-      this.tiles = this.tiles.splice(this.tiles.indexOf(result[i], 1));
-      console.log(this.tiles.length);
 
-    }
   }
 
   ngOnDestroy() {
