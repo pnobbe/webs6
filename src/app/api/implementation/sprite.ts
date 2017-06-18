@@ -61,38 +61,38 @@ export class SpriteApi extends Connection {
     this.suit["Wind"] = 38;
 
     // Bamboo/Character/Circle
-    this.name["1"] = 1;
-    this.name["2"] = 2;
-    this.name["3"] = 3;
-    this.name["4"] = 4;
-    this.name["5"] = 5;
-    this.name["6"] = 6;
-    this.name["7"] = 7;
-    this.name["8"] = 8;
-    this.name["9"] = 9;
+    this.name["1"] = 0;
+    this.name["2"] = 1;
+    this.name["3"] = 2;
+    this.name["4"] = 3;
+    this.name["5"] = 4;
+    this.name["6"] = 5;
+    this.name["7"] = 6;
+    this.name["8"] = 7;
+    this.name["9"] = 8;
 
     // Dragon
-    this.name["Green"] = 1;
-    this.name["Red"] = 2;
-    this.name["White"] = 3;
+    this.name["Green"] = 0;
+    this.name["Red"] = 1;
+    this.name["White"] = 2;
 
     // Flower
-    this.name["Bamboo"] = 1;
-    this.name["Chrysantememum"] = 2;
-    this.name["Orchid"] = 3;
-    this.name["Plum"] = 4;
+    this.name["Bamboo"] = 0;
+    this.name["Chrysantememum"] = 1;
+    this.name["Orchid"] = 2;
+    this.name["Plum"] = 3;
 
     // Season
-    this.name["Autumn"] = 1;
-    this.name["Spring"] = 2;
-    this.name["Summer"] = 3;
-    this.name["Winter"] = 4;
+    this.name["Autumn"] = 0;
+    this.name["Spring"] = 1;
+    this.name["Summer"] = 2;
+    this.name["Winter"] = 3;
 
     // Wind
-    this.name["East"] = 1;
-    this.name["North"] = 2;
-    this.name["South"] = 3;
-    this.name["West"] = 4;
+    this.name["East"] = 0;
+    this.name["North"] = 1;
+    this.name["South"] = 2;
+    this.name["West"] = 3;
   }
 
 

@@ -25,7 +25,6 @@ export class GameTileOrderBy implements PipeTransform {
       } else if (a.yPos > b.yPos) {
         return 1;
       }
-
       return 0;
     });
     return array;

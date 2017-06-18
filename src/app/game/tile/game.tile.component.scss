@@ -1,0 +1,11 @@
+.tile {
+  transition: all .1s ease-in-out;
+}
+
+.tile:hover {
+  transform: scale(1.01);
+}
+
+.selected {
+
+}

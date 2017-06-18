@@ -45,10 +45,9 @@ export class SocketService {
   }
 
   close() {
-    if (this.counter != 0) {
+    if (this.counter !== 0) {
       console.error("There are still open socket observables.");
-    }
-    else {
+    } else {
       this.socket.disconnect();
     }
   }

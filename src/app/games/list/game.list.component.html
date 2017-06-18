@@ -2,60 +2,49 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading">Games list</div>
-        <p>
-          <button class="btn btn-primary" routerLink="/games/open" routerLinkActive="active">Open games</button>
-          <button class="btn btn-primary" routerLink="/games/playing" routerLinkActive="active">Started games</button>
-          <button class="btn btn-primary" routerLink="/games/finished" routerLinkActive="active">Finished games</button>
-          <button class="btn btn-primary" routerLink="/games/mine" routerLinkActive="active">My games</button>
-        </p>
-        <div class="horizontally-scrollable">
-          <table class="table">
-            <tr class="info">
-              <th>Game</th>
-              <th>State</th>
-              <th>Created On</th>
-              <th>Started On</th>
-              <th>Ended On</th>
-              <th>Created By</th>
-              <th>Players</th>
-            </tr>
-            <tr *ngFor="let game of games | gameFilter : getStatus(): getUser()">
-              <td>{{game.gameTemplate.id}}</td>
-              <td>{{game.state}}</td>
-              <td>{{game.createdOn | date: 'd-M-y HH:mm:ss'}}</td>
-              <td>{{game.startedOn | date: 'd-M-y HH:mm:ss'}}</td>
-              <td>{{game.endedOn | date: 'd-M-y HH:mm:ss'}}</td>
-              <td>{{game.createdBy.name}}</td>
-              <td>{{game.players.length}} / {{game.maxPlayers}}</td>
-              <td>
-                <ul [hidden]="!game.hasActions" class="dropdown-menu">
-                  <li [hidden]="! game.canLobby">
-                    <a href="javascript:void(0)" (click)="play(game)">Go to Lobby</a>
-                  </li>
-                  <li [hidden]="!game.canJoin">
-                    <a href="javascript:void(0)" (click)="join(game)">Join</a>
-                  </li>
-                  <li [hidden]="! game.canLeave">
-                    <a href="javascript:void(0)" (click)="leave(game)">Leave</a>
-                  </li>
-                  <li [hidden]="!game.canStart">
-                    <a href="javascript:void(0)" (click)="start(game)">Start</a>
-                  </li>
-                  <li [hidden]="!game.canPlay">
-                    <a href="javascript:void(0)" (click)="play(game)">Play</a>
-                  </li>
-                  <li [hidden]="!game.canDelete">
-                    <a href="javascript:void(0)" (click)="delete(game)">Delete</a>
-                  </li>
-                  <a href="javascript:void(0)" (click)="details(game)">Details</a>
-                </ul>
-              </td>
-            </tr>
-          </table>
-        </div>
-      </div>
+      Games list
+      <p>
+        <button class="btn btn-primary" routerLink="/games/open" routerLinkActive="active">Open games</button>
+        <button class="btn btn-primary" routerLink="/games/playing" routerLinkActive="active">Started games</button>
+        <button class="btn btn-primary" routerLink="/games/finished" routerLinkActive="active">Finished games</button>
+        <button class="btn btn-primary" routerLink="/games/mine" routerLinkActive="active">My games</button>
+      </p>
+    </div>
+  </div>
+  <div class="row box">
+    <div class="col-md-12">
+      <table class="table">
+        <tr class="info">
+          <th>Game</th>
+          <th>State</th>
+          <th>Created On</th>
+          <th>Started On</th>
+          <th>Ended On</th>
+          <th>Created By</th>
+          <th>Players</th>
+          <th>Actions</th>
+        </tr>
+        <tr *ngFor="let game of games | gameFilter : getStatus(): getUser()">
+          <td>{{game.gameTemplate.id}}</td>
+          <td>{{game.state}}</td>
+          <td>{{game.createdOn | date: 'd-M-y HH:mm:ss'}}</td>
+          <td>{{game.startedOn | date: 'd-M-y HH:mm:ss'}}</td>
+          <td>{{game.endedOn | date: 'd-M-y HH:mm:ss'}}</td>
+          <td>{{game.createdBy.name}}</td>
+          <td>{{game.players.length}} / {{game.maxPlayers}}</td>
+          <td>
+            <div [hidden]="!game.hasActions">
+              <button class="btn btn-primary" *ngIf="game.canLobby" (click)="play(game)">Go to lobby</button>
+              <button class="btn btn-primary" *ngIf="game.canJoin" (click)="join(game)">Join</button>
+              <button class="btn btn-primary" *ngIf="game.canLeave"(click)="leave(game)">Leave</button>
+              <button class="btn btn-primary" *ngIf="game.canStart" (click)="start(game)">Start</button>
+              <button class="btn btn-primary" *ngIf="game.canPlay" (click)="play(game)">Play</button>
+              <button class="btn btn-primary" *ngIf="game.canDelete" (click)="delete(game)">Delete</button>
+              <button class="btn btn-primary" (click)="details(game)">Details</button>
+            </div>
+          </td>
+        </tr>
+      </table>
     </div>
   </div>
 </div>

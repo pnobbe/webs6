@@ -1,5 +1,14 @@
-<svg:rect x="86" y="61" width="1" height="198" stroke="none" stroke-width="0" fill-opacity="1" stroke-opacity="1"
-      stroke-dasharray="0" fill="#cccccc">
-</svg:rect>
+<svg:defs xmlns="http://www.w3.org/2000/svg">
+  <filter id="tile{{getId}}" x="-100%" y="-100%" width="300%" height="300%">
+    <feDropShadow dx="-2" dy="2" stdDeviation="3"/>
+    <feDiffuseLighting *ngIf="selected" in="SourceGraphic" result="light"
+                       lighting-color="rgba(182,255,182,0.1)">
+      <fePointLight [attr.x]="getXPos" [attr.y]="getYPos" z="50" />
+    </feDiffuseLighting>
 
+    <feComposite *ngIf="selected" in="SourceGraphic" in2="light"
+                 operator="arithmetic" k1="1" k2="0" k3="0" k4="0"/>
+  </filter>
+</svg:defs>
+<svg:image class="tile" attr.xlink:href="{{getImageURL}}" [attr.x]="getXPos" [attr.y]="getYPos" [attr.height]="getHeight" [attr.width]="getWidth" [attr.filter]="'url(#tile' + getId + ')'" (click)="onClick(tile)" />
 

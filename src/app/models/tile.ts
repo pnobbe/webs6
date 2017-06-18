@@ -14,27 +14,21 @@ export class Tile {
     Object.assign(this, values);
   }
 
-  getXPos() {
-    return (this.xPos * (this.getWidth() / 2.2))  + (this.zPos * this.getWidth() / 8) + 50;
-  }
-
-  getYPos() {
-    return (this.yPos * (this.getHeight() / 2.25)) - (this.zPos * this.getHeight() / 8);
-  }
-
-  getHeight() {
-    return this.getWidth() * 1.37;
-  }
-
-  getWidth() {
-    return 75;
-  }
-
-  getColor() {
-    const red = (this.zPos + 1) * 50;
-    const green = (this.zPos + 1) * 0;
-    const blue = (this.zPos + 1) * 0;
-    return "fill: rgb(" + red + "," + green + "," + blue + ");";
+  tryMatch(tile: Tile): boolean {
+    if (this._id !== tile._id) {
+      if (this.tile.suit === tile.tile.suit) {
+        if (this.tile.name === tile.tile.name || (this.tile.matchesWholeSuit || tile.tile.matchesWholeSuit)) {
+          console.log("Tiles matched!");
+          return true;
+        }
+        console.error("Tiles do not match.");
+        return false;
+      }
+      console.error("Selected tiles have no matching suit.");
+      return false;
+    }
+    console.error("Same tile selected twice.");
+    return false;
   }
 
 }

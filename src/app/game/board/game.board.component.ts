@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from "@angular/core";
 import {Tile} from "../../models/tile";
 import {DomSanitizer} from "@angular/platform-browser";
 import {ApiService} from "../../api/api.service";
+import {GamePlayComponent} from "../../games/play/game.play.component";
 
 @Component({
   selector: "app-board",
@@ -11,24 +12,34 @@ import {ApiService} from "../../api/api.service";
 export class GameBoardComponent implements OnInit {
 
   @Input() tiles: Tile[];
-  @Input() clickable: boolean;
-  private sanitizer: DomSanitizer;
+  private selectedTile: Tile;
 
-  constructor(private sanitizer1: DomSanitizer, private api: ApiService) {
-    this.sanitizer = sanitizer1;
+  constructor(private sanitizer: DomSanitizer, private api: ApiService, private game: GamePlayComponent) {
   }
 
   ngOnInit() {
 
   }
 
-  getColor(tile: Tile) {
-    return this.sanitizer.bypassSecurityTrustStyle(tile.getColor());
+  get getHeight(): number {
+    return this.getWidth;
   }
 
-  getImageURL(tile: Tile) {
-    const url = this.api.sprites.getSprite(tile);
-    return url;
+  get getWidth(): number {
+    return 1000;
+  }
+
+  tryMatch(tile: Tile) {
+    if (!this.selectedTile) {
+      this.selectedTile = tile;
+      console.log("Selected first tile.");
+    } else {
+      const selTile = this.selectedTile;
+      this.selectedTile = null;
+      if (selTile.tryMatch(tile)) {
+        this.game.match(selTile._id, tile._id);
+      }
+    }
   }
 
 }

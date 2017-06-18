@@ -128,7 +128,6 @@ export class GameApi extends Connection {
         if (response.ok) {
           return resolve(response.json());
         }
-
         reject();
       }, reject);
     });
