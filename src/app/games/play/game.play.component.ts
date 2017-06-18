@@ -106,8 +106,11 @@ export class GamePlayComponent implements OnInit {
     });
     console.log(result);
     for (let i = 0; i < result.length; i++) {
-      console.log(result[i]._id + " " + this.tiles(this.tiles.indexOf(result[i])));
-      this.tiles.splice(this.tiles.indexOf(result[i], 1));
+      console.log(result[i]._id + " " + this.tiles[this.tiles.indexOf(result[i])]._id);
+      console.log(this.tiles.length);
+      this.tiles = this.tiles.splice(this.tiles.indexOf(result[i], 1));
+      console.log(this.tiles.length);
+
     }
   }
 
