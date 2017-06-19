@@ -3,14 +3,13 @@
 @import "~bootstrap-sass/assets/stylesheets/_bootstrap-sprockets.scss";
 @import "~bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 @import url('https://fonts.googleapis.com/css?family=Titillium+Web');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 @include mat-core();
 $font-header: bazar, sans-serif;
 
 @import "themes/space";
 @import "themes/classic";
-
-
 
 #preloader-container {
   background-color: #000000;

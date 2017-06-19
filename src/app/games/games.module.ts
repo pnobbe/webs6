@@ -11,7 +11,8 @@ import {BrowserModule} from "@angular/platform-browser";
 import {GameModule} from "../game/game.module";
 import {KeyPipe} from "./create/game.create.transform.pipe";
 import {MaterialDesignModule} from "../materialdesign.module";
-
+import {LoggerComponent} from "./logger/logger.component";
+import {ScrollGlue} from "./logger/scrollglue.directive";
 @NgModule({
 
   imports: [
@@ -28,7 +29,10 @@ import {MaterialDesignModule} from "../materialdesign.module";
     GameCreateComponent,
     GamePlayComponent,
     GameListFilterPipe,
-    KeyPipe
+    KeyPipe,
+    LoggerComponent,
+    ScrollGlue,
+
   ],
   providers: [],
   exports: []

@@ -12,6 +12,11 @@ export class GameListFilterPipe implements PipeTransform {
       return games;
     }
 
+    if (status === "favorites") {
+      return games.filter(
+        game => game.isFavorite);
+    }
+
     let newGames;
     if (status === "mine" || status === "finished") {
       newGames = games.filter(

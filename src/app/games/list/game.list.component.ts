@@ -16,7 +16,7 @@ export class GameListComponent implements OnInit {
 
   games: Game[];
 
-  status = "";
+  status: string;
 
   constructor(private api: ApiService, private router: Router, private route: ActivatedRoute, private snackBar: MdSnackBar) {
   }
@@ -27,6 +27,7 @@ export class GameListComponent implements OnInit {
     this.route.params.subscribe(params => {
       if (params["status"]) {
         status = params["status"];
+        console.log(status);
       }
       this.api.games.getGames().then(games => {
         this.games = games;
@@ -106,6 +107,11 @@ export class GameListComponent implements OnInit {
       duration: 2000
     });
   };
+
+  toggleFavorite(game: Game) {
+    game.isFavorite = !game.isFavorite;
+    console.log(game.isFavorite);
+  }
 
 
 }

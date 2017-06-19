@@ -2,7 +2,7 @@ import {Component, OnInit, OnDestroy} from "@angular/core";
 import {ApiService} from "../../api/api.service";
 import {Game} from "../../models/game";
 import {ActivatedRoute} from "@angular/router";
-import {SocketService} from "./socket.service";
+import {SocketService} from "./../socket.service";
 import {Tile} from "../../models/tile";
 import {Match} from "../../models/match";
 import {User} from "../../models/user";
@@ -10,6 +10,7 @@ import {Router} from "@angular/router";
 import {MdSnackBar, MdSnackBarConfig} from "@angular/material";
 import {GameTileMatrix} from "../../game/board/game.board.matrix.pipe";
 import {GameTileOrderBy} from "../../game/board/game.board.orderby.pipe";
+import {LoggerComponent} from "../logger/logger.component";
 
 @Component({
   selector: "app-game-play",
