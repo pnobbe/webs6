@@ -15,32 +15,33 @@ export class Tile {
     foundOn: Date;
     otherTileId: string;
   };
+  selectable: boolean;
+  hint: boolean;
+  historyTile: boolean;
 
   constructor(values: Object = {}) {
     Object.assign(this, values);
-    console.dir(this);
     if (this.match !== null && this.match !== undefined) {
       this.match.foundOn = this.match.foundOn == null ? null : new Date(this.match.foundOn);
     } else {
       this.match = null;
     }
-
+    this.selectable = false;
+    this.hint = false;
+    this.historyTile = false;
   }
 
   matches(tile: Tile): boolean {
+
     if (this._id !== tile._id) {
       if (this.tile.suit === tile.tile.suit) {
         if (this.tile.name === tile.tile.name || (this.tile.matchesWholeSuit || tile.tile.matchesWholeSuit)) {
-          console.log("Tiles matched!");
           return true;
         }
-        console.error("Tiles do not match.");
         return false;
       }
-      console.error("Selected tiles have no matching suit.");
       return false;
     }
-    console.log("Deselecting tile");
     return false;
   }
 

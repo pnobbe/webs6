@@ -6,52 +6,48 @@
   </button>
   <button md-raised-button color="primary" routerLink="/games/mine" routerLinkActive="active">My games</button>
 </p>
-<br>
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12 col-md-6 col-lg-4 col-xl-2"
-         *ngFor="let game of games | gameFilter : getStatus(): getUser()">
-      <div class="panel panel-default"
-           [style.background]="'url(assets/games/' + game.gameTemplate.id.toLowerCase() + '.jpg)'"
-           [style.background-repeat]="'no-repeat'"
-           [style.background-size]="'cover'">
-        <div class="panel-heading header">
-          <h4 class="text overflow">{{game.gameTemplate.id}} - {{game.createdBy.name}}</h4>
-          <h6 class="text">{{game.state}}</h6>
-        </div>
-        <div class="panel-body">
-          <p> {{game.players.length}} / {{game.maxPlayers}}</p>
-          <p>Created: {{game.createdOn | date: 'd-M-y HH:mm'}}</p>
-          <p>Started: <span [hidden]="!game.startedOn">{{game.startedOn | date: 'd-M-y HH:mm'}} </span> <span
-            [hidden]="game.startedOn"> - </span></p>
-          <p>Ended: <span [hidden]="!game.endedOn"> {{game.endedOn | date: 'd-M-y HH:mm'}} </span> <span
-            [hidden]="game.endedOn"> - </span></p>
-        </div>
-        <div class="panel-footer" style="height:60px">
-          <button class="md-secondary" md-raised-button color="primary" *ngIf="game.canLobby" (click)="play(game)">Go
-            to
-            lobby
-          </button>
-          <button class="md-secondary" md-raised-button color="primary" *ngIf="game.canJoin" (click)="join(game)">Join
-          </button>
-          <button class="md-secondary" md-raised-button color="primary" *ngIf="game.canLeave" (click)="leave(game)">
-            Leave
-          </button>
-          <button class="md-secondary" md-raised-button color="primary" *ngIf="game.canStart" (click)="start(game)">
-            Start
-          </button>
-          <button class="md-secondary" md-raised-button color="primary" *ngIf="game.canPlay" (click)="play(game)">Play
-          </button>
-          <button class="md-secondary" md-raised-button color="primary" *ngIf="game.canSpectate"
-                  (click)="spectate(game)">Spectate
-          </button>
-          <button class="md-secondary" md-raised-button color="primary" *ngIf="game.canView" (click)="view(game)">
-            View
-          </button>
-          <button class="md-secondary" md-raised-button color="primary" *ngIf="game.canDelete" (click)="delete(game)">
-            Delete
-          </button>
-        </div>
+<div class="row box">
+  <div class="col-xs-12 col-md-6 col-lg-4 col-xl-2"
+       *ngFor="let game of games | gameFilter : getStatus(): getUser()">
+    <div class="panel panel-default"
+         [style.background]="'url(assets/games/' + game.gameTemplate.id.toLowerCase() + '.jpg)'"
+         [style.background-repeat]="'no-repeat'"
+         [style.background-size]="'cover'">
+      <div class="panel-heading header">
+        <h4 class="text overflow">{{game.gameTemplate.id}} - {{game.createdBy.name}}</h4>
+        <h6 class="text">{{game.state}}</h6>
+      </div>
+      <div class="panel-body">
+        <p> {{game.players.length}} / {{game.maxPlayers}}</p>
+        <p>Created: {{game.createdOn | date: 'd-M-y HH:mm'}}</p>
+        <p>Started: <span [hidden]="!game.startedOn">{{game.startedOn | date: 'd-M-y HH:mm'}} </span> <span
+          [hidden]="game.startedOn"> - </span></p>
+        <p>Ended: <span [hidden]="!game.endedOn"> {{game.endedOn | date: 'd-M-y HH:mm'}} </span> <span
+          [hidden]="game.endedOn"> - </span></p>
+      </div>
+      <div class="panel-footer" style="height:60px">
+        <button class="md-secondary" md-raised-button color="primary" *ngIf="game.canLobby" (click)="play(game)">
+          Lobby
+        </button>
+        <button class="md-secondary" md-raised-button color="primary" *ngIf="game.canJoin" (click)="join(game)">Join
+        </button>
+        <button class="md-secondary" md-raised-button color="primary" *ngIf="game.canLeave" (click)="leave(game)">
+          Leave
+        </button>
+        <button class="md-secondary" md-raised-button color="primary" *ngIf="game.canStart" (click)="start(game)">
+          Start
+        </button>
+        <button class="md-secondary" md-raised-button color="primary" *ngIf="game.canPlay" (click)="play(game)">Play
+        </button>
+        <button class="md-secondary" md-raised-button color="primary" *ngIf="game.canSpectate"
+                (click)="spectate(game)">Spectate
+        </button>
+        <button class="md-secondary" md-raised-button color="primary" *ngIf="game.canView" (click)="view(game)">
+          View
+        </button>
+        <button class="md-secondary" md-raised-button color="primary" *ngIf="game.canDelete" (click)="delete(game)">
+          Delete
+        </button>
       </div>
     </div>
   </div>

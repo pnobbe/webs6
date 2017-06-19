@@ -48,10 +48,22 @@ export class GameTileComponent implements OnInit {
     return (50 * this.size);
   }
 
+  get getClasses(): string {
+    let classes = "tile ";
+    if (this.tile.selectable) {
+      classes += "selectable ";
+    }
+    if (this.tile.historyTile) {
+      classes += "history ";
+    }
+    return classes;
+  }
+
   onClick(tile: Tile) {
-    if (tile.tile) {
+    if (tile.tile && this.tile.selectable) {
       console.log("Clicked " + tile.tile.suit + " " + tile.tile.name + " " + tile._id);
       this.onSelected.emit(tile);
+      this.selected = !this.selected;
       return;
     }
     console.log("Tile is not clickable");

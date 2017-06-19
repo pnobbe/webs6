@@ -2,10 +2,10 @@
   transition: all .1s ease-in-out;
 }
 
-.tile:hover {
+.selectable:hover {
   transform: scale(1.01);
 }
 
-.selected {
-
+.history {
+  opacity: 0.75;
 }

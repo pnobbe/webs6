@@ -8,6 +8,7 @@ import {PlayerComponent} from "./player/player.component";
 import {MatchComponent} from "./match/match.component";
 import {MaterialDesignModule} from "../materialdesign.module";
 import {FilterHiddenTilePipe} from "./board/game.board.filter.pipe";
+import {FilterSelectablePipe} from "./board/game.board.selectable.pipe";
 
 @NgModule({
 
@@ -16,7 +17,7 @@ import {FilterHiddenTilePipe} from "./board/game.board.filter.pipe";
     MenuModule,
     MaterialDesignModule
   ],
-  declarations: [GameBoardComponent, GameTileComponent, GameTileOrderBy, PlayerComponent, MatchComponent, FilterHiddenTilePipe],
+  declarations: [GameBoardComponent, GameTileComponent, GameTileOrderBy, PlayerComponent, MatchComponent, FilterHiddenTilePipe, FilterSelectablePipe],
   providers: [],
   exports: [GameBoardComponent, PlayerComponent, MatchComponent]
 })

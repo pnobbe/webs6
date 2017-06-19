@@ -17,7 +17,6 @@ export class GameBoardComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.tiles);
   }
 
   get getHeight(): number {

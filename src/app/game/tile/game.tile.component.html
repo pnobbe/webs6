@@ -1,14 +1,22 @@
 <svg:defs xmlns="http://www.w3.org/2000/svg">
   <filter id="tile{{getId}}" x="-100%" y="-100%" width="300%" height="300%">
     <feDropShadow dx="-2" dy="2" stdDeviation="3"/>
+    <feDiffuseLighting *ngIf="tile.hint" in="SourceGraphic" result="light"
+                       lighting-color="rgba(255,255,182,0.1)">
+      <fePointLight [attr.x]="getXPos" [attr.y]="getYPos" z="50" />
+    </feDiffuseLighting>
+
     <feDiffuseLighting *ngIf="selected" in="SourceGraphic" result="light"
                        lighting-color="rgba(182,255,182,0.1)">
       <fePointLight [attr.x]="getXPos" [attr.y]="getYPos" z="50" />
     </feDiffuseLighting>
 
+    <feComposite *ngIf="tile.hint" in="SourceGraphic" in2="light"
+                 operator="arithmetic" k1="1" k2="0" k3="0" k4="0"/>
+
     <feComposite *ngIf="selected" in="SourceGraphic" in2="light"
                  operator="arithmetic" k1="1" k2="0" k3="0" k4="0"/>
   </filter>
 </svg:defs>
-<svg:image class="tile" attr.xlink:href="{{getImageURL}}" [attr.x]="getXPos" [attr.y]="getYPos" [attr.height]="getHeight" [attr.width]="getWidth" [attr.filter]="'url(#tile' + getId + ')'" (click)="onClick(tile)"/>
+<svg:image [attr.class]="getClasses" attr.xlink:href="{{getImageURL}}" [attr.x]="getXPos" [attr.y]="getYPos" [attr.height]="getHeight" [attr.width]="getWidth" [attr.filter]="'url(#tile' + getId + ')'" (click)="onClick(tile)"/>
 

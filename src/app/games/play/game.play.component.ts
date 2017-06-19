@@ -1,15 +1,14 @@
-import {Component, OnInit, OnDestroy} from "@angular/core";
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ApiService} from "../../api/api.service";
 import {Game} from "../../models/game";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {SocketService} from "./socket.service";
 import {Tile} from "../../models/tile";
 import {Match} from "../../models/match";
 import {User} from "../../models/user";
-import {Router} from "@angular/router";
 import {MdSnackBar, MdSnackBarConfig} from "@angular/material";
-import {GameTileMatrix} from "../../game/board/game.board.matrix.pipe";
-import {GameTileOrderBy} from "../../game/board/game.board.orderby.pipe";
+import {FilterSelectablePipe} from "../../game/board/game.board.selectable.pipe";
+import {FilterHiddenTilePipe} from "../../game/board/game.board.filter.pipe";
 
 @Component({
   selector: "app-game-play",
@@ -124,11 +123,6 @@ export class GamePlayComponent implements OnInit, OnDestroy {
                 matches[i].match.foundOn, matches[i].match.foundBy);
 
             }
-            const orderByPipe = new GameTileOrderBy();
-            this.tiles = orderByPipe.transform(this.startTiles);
-
-            // provide the framework with data
-            console.log(this.tiles);
           });
 
           if (this.game.state === "playing") {
@@ -159,7 +153,6 @@ export class GamePlayComponent implements OnInit, OnDestroy {
       this.seenMatches.push(id1);
       this.seenMatches.push(id2);
 
-
       for (const t of this.tiles) {
         if (t._id === id1 || t._id === id2) {
           t.hidden = true;
@@ -175,12 +168,19 @@ export class GamePlayComponent implements OnInit, OnDestroy {
 
       // Set tiles
       if (tiles[0]._id === id1) {
+
         m.tile1 = Object.assign({}, tiles[0]);
         m.tile2 = Object.assign({}, tiles[1]);
       } else {
         m.tile1 = Object.assign({}, tiles[1]);
         m.tile2 = Object.assign({}, tiles[0]);
       }
+
+      m.tile1.selectable = false;
+      m.tile1.hint = false;
+
+      m.tile2.selectable = false;
+      m.tile2.hint = false;
 
       // Set finder
       m.foundOn = foundOn;
@@ -193,10 +193,24 @@ export class GamePlayComponent implements OnInit, OnDestroy {
     }
   }
 
-  getHint() {
-    const matrixPipe = new GameTileMatrix();
-    const orderByPipe = new GameTileOrderBy();
-    matrixPipe.transform(orderByPipe.transform(this.tiles));
+  private getHint() {
+    const filterPipe = new FilterSelectablePipe();
+    const hiddenPipe = new FilterHiddenTilePipe();
+    let selectables = hiddenPipe.transform(this.tiles, null);
+    selectables = filterPipe.transform(selectables, null).filter(tile => {
+      return tile.selectable === true;
+    });
+
+    for (let i = 0; i < selectables.length; i++) {
+      for (let j = i; j < selectables.length; j++) {
+        if (selectables[i].matches(selectables[j])) {
+          selectables[i].hint = true;
+          selectables[j].hint = true;
+          return;
+        }
+      }
+    }
+    this.popup("Unable to find any matches, game should be over.");
   }
 
   ngOnDestroy() {
@@ -209,6 +223,9 @@ export class GamePlayComponent implements OnInit, OnDestroy {
     for (const t of this.tiles) {
       if (t._id === match.tile1._id || match.tile2._id === t._id) {
         t.hidden = false;
+        t.hint = false;
+        t.selectable = false;
+        t.historyTile = true;
       }
     }
     this.history++;
@@ -221,6 +238,7 @@ export class GamePlayComponent implements OnInit, OnDestroy {
     for (const t of this.tiles) {
       if (t._id === match.tile1._id || match.tile2._id === t._id) {
         t.hidden = true;
+
       }
     }
   }
