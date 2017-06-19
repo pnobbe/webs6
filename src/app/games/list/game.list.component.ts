@@ -3,6 +3,7 @@ import {ActivatedRoute, Params} from "@angular/router";
 import {ApiService} from "app/api/api.service";
 import {Game} from "app/models/game";
 import {Router} from "@angular/router";
+import {MdSnackBar, MdSnackBarConfig} from "@angular/material";
 
 @Component({
   selector: "app-game-list",
@@ -17,7 +18,7 @@ export class GameListComponent implements OnInit {
 
   status = "";
 
-  constructor(private api: ApiService, private router: Router, private route: ActivatedRoute) {
+  constructor(private api: ApiService, private router: Router, private route: ActivatedRoute, private snackBar: MdSnackBar) {
   }
 
   ngOnInit(): void {
@@ -38,7 +39,8 @@ export class GameListComponent implements OnInit {
     const self = this;
     this.api.games.deleteGame(game._id).then(success => {
       if (success) {
-        this.games = self.games.filter(g => {
+        self.popup("Deleted Game!");
+        self.games = self.games.filter(g => {
           return g._id !== game._id;
         });
       }
@@ -49,7 +51,16 @@ export class GameListComponent implements OnInit {
     this.router.navigate(["games", "play", game._id]);
   }
 
+  view(game: Game) {
+    this.router.navigate(["games", "play", game._id]);
+  }
+
+  spectate(game: Game) {
+    this.router.navigate(["games", "play", game._id]);
+  }
+
   leave(game: Game) {
+    this.popup("leaving game (dummy. api werkt niet)");
     const self = this;
     this.api.games.leaveGame(game._id).then(success => {
       if (success === true) {
@@ -59,8 +70,12 @@ export class GameListComponent implements OnInit {
   }
 
   start(game: Game) {
-    this.api.games.startGame(game._id).then(success => {
+
+    const self = this;
+    this.api.games.startGame(
+      game._id).then(success => {
       if (success === true) {
+        self.popup("Started Game!");
         game.state = "playing";
         game.startedOn = Date.now().toString();
       }
@@ -68,9 +83,11 @@ export class GameListComponent implements OnInit {
   }
 
   join(game: Game) {
+
     const self = this;
     this.api.games.joinGame(game._id).then(success => {
       if (success === true) {
+        self.popup("Joined Game!");
         game.players.push(self.api.users.getMe());
       }
     });
@@ -83,6 +100,12 @@ export class GameListComponent implements OnInit {
   getUser() {
     return this.api.users.getMe()._id;
   }
+
+  private popup(string) {
+    this.snackBar.open(string, null, <MdSnackBarConfig>{
+      duration: 2000
+    });
+  };
 
 
 }

@@ -98,7 +98,7 @@ export class Game {
 
   }
 
-  private curUserInGame(): boolean {
+  public curUserInGame(): boolean {
     return this.inGame(ApiService.user_email);
   }
 

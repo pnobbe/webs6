@@ -5,6 +5,9 @@ import {ActivatedRoute} from "@angular/router";
 import {SocketService} from "./socket.service";
 import {Tile} from "../../models/tile";
 import {Match} from "../../models/match";
+import {User} from "../../models/user";
+import {Router} from "@angular/router";
+import {MdSnackBar, MdSnackBarConfig} from "@angular/material";
 
 @Component({
   selector: "app-game-play",
@@ -22,9 +25,10 @@ export class GamePlayComponent implements OnInit, OnDestroy {
   startTiles: Tile[];
   seenMatches: string[];
   history: number;
+  action: string;
 
 
-  constructor(private api: ApiService, private route: ActivatedRoute) {
+  constructor(private api: ApiService, private route: ActivatedRoute, private router: Router, private snackBar: MdSnackBar) {
     this.history = 0;
   }
 
@@ -39,14 +43,24 @@ export class GamePlayComponent implements OnInit, OnDestroy {
       // start -> recollect all game data
       this.sockets.start().subscribe(data => {
         console.log(data);
+        this.getGameData(params["id"]);
+        // popup
+        this.popup("Match Started!");
       });
       // end -> recollect all game data
       this.sockets.end().subscribe(data => {
-        console.log(data);
+        this.getGameData(params["id"]);
+        // popup
+        this.popup("Match Over!");
       });
       // player joined -> refresh player names
       this.sockets.playerJoined().subscribe(data => {
         console.log(data);
+        const u = new User(data);
+        this.game.players.push(u);
+        // popup
+        this.popup(u.name + " joined!");
+
       });
       // match -> redraw board
       this.sockets.match().subscribe(data => {
@@ -85,10 +99,12 @@ export class GamePlayComponent implements OnInit, OnDestroy {
           // game is in lobby, get template
           this.api.templates.getTemplate(this.game.gameTemplate.id).then(template => {
             this.tiles = template.tiles;
+            this.action = "Lobby";
+            // todo turn off clicks/hover
           }).catch(err => {
             console.error(err);
           });
-        } else if (this.game.state === "playing") {
+        } else if (this.game.state === "playing" || this.game.state === "finished") {
           // game is in progress, get game tiles
           this.api.games.gameTiles(this.game._id, false).then(tiles => {
             this.tiles = tiles;
@@ -110,7 +126,23 @@ export class GamePlayComponent implements OnInit, OnDestroy {
             console.log(this.tiles);
           });
 
+          if (this.game.state === "playing") {
+            if (this.game.curUserInGame()) {
+              // PLAYING
+              this.action = "Playing";
+            } else {
+              // SPECTATING
+              this.action = "Spectating";
+              // todo turn off clicks/hover
+            }
+          } else {
+            // History
+            this.action = "History";
+            // todo turn off clicks/hover
+          }
+
         }
+
       }
     ).catch(err => {
       console.error(err);
@@ -182,4 +214,31 @@ export class GamePlayComponent implements OnInit, OnDestroy {
     }
   }
 
+  start() {
+    this.popup("Starting game");
+    this.api.games.startGame(this.game._id);
+  }
+
+  private popup(string) {
+    this.snackBar.open(string, null, <MdSnackBarConfig>{
+      duration: 2000
+    });
+  };
+
+  delete() {
+    this.popup("Deleting game");
+    this.api.games.deleteGame(this.game._id).then(c => {
+      if (c === true) {
+        this.router.navigate(["games"]);
+      }
+    });
+  }
+
+  leave() {
+    this.popup("Leaving game");
+
+    this.api.games.leaveGame(this.game._id).then(c => {
+      this.router.navigate(["games"]);
+    });
+  }
 }

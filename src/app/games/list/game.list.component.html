@@ -44,9 +44,9 @@ Games list
           <button class="md-secondary" md-raised-button color="primary" *ngIf="game.canPlay" (click)="play(game)">Play
           </button>
           <button class="md-secondary" md-raised-button color="primary" *ngIf="game.canSpectate"
-                  (click)="details(game)">Spectate
+                  (click)="spectate(game)">Spectate
           </button>
-          <button class="md-secondary" md-raised-button color="primary" *ngIf="game.canView" (click)="details(game)">
+          <button class="md-secondary" md-raised-button color="primary" *ngIf="game.canView" (click)="view(game)">
             View
           </button>
           <button class="md-secondary" md-raised-button color="primary" *ngIf="game.canDelete" (click)="delete(game)">
