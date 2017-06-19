@@ -45,11 +45,6 @@ export class GameListComponent implements OnInit {
     });
   }
 
-  details(game: Game) {
-    console.log("Show a div somewhere on page with all game info");
-    alert("see console");
-  }
-
   play(game: Game) {
     this.router.navigate(["games", "play", game._id]);
   }

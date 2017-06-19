@@ -125,7 +125,6 @@ export class GamePlayComponent implements OnInit, OnDestroy {
 
       for (const t of this.tiles) {
         if (t._id === id1 || t._id === id2) {
-          console.log("HIDE");
           t.hidden = true;
         }
       }
