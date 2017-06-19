@@ -23,6 +23,18 @@
     text-shadow: none;
   }
 
+  .log {
+    background: $primary-color;
+    overflow-y: scroll;
+    max-height: 200px;
+    font-style: normal;
+  }
+
+  .log > * {
+    margin: 0;
+    color: white;
+  }
+
   .site-name {
     @extend .text;
     font-family: "Titillium Web", sans-serif;
@@ -35,6 +47,10 @@
     text-size-adjust: 100%;
     width: auto;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  }
+
+  .notFavorite {
+    color: invert($accent-color);
   }
 
   .header-screen {

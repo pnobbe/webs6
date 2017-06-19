@@ -11,7 +11,8 @@ import {BrowserModule} from "@angular/platform-browser";
 import {GameModule} from "../game/game.module";
 import {KeyPipe} from "./create/game.create.transform.pipe";
 import {MaterialDesignModule} from "../materialdesign.module";
-
+import {LoggerComponent} from "./logger/logger.component";
+import {ScrollGlue} from "./logger/scrollglue.directive";
 @NgModule({
 
   imports: [
@@ -28,13 +29,27 @@ import {MaterialDesignModule} from "../materialdesign.module";
     GameCreateComponent,
     GamePlayComponent,
     GameListFilterPipe,
-    KeyPipe
+    KeyPipe,
+    LoggerComponent,
+    ScrollGlue,
+
   ],
   providers: [],
   exports: []
 })
 export class GamesModule {
 }
+
+const playSubRoutes = <Routes>[
+  {
+    path: "",
+    component: GamePlayComponent
+  },
+  {
+    path: ":subItem",
+    component: GamePlayComponent
+  }
+];
 
 export const gameRoutes = <Routes>[
   {
@@ -43,7 +58,7 @@ export const gameRoutes = <Routes>[
   },
   {
     path: "play/:id",
-    component: GamePlayComponent
+    children: playSubRoutes
   },
   {
     path: ":status",

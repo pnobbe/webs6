@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ApiService} from "../../api/api.service";
 import {Game} from "../../models/game";
 import {ActivatedRoute, Router} from "@angular/router";
-import {SocketService} from "./socket.service";
+import {SocketService} from "../socket.service";
 import {Tile} from "../../models/tile";
 import {Match} from "../../models/match";
 import {User} from "../../models/user";
@@ -23,11 +23,14 @@ export class GamePlayComponent implements OnInit, OnDestroy {
   game: Game;
   tiles: Tile[];
   selectedTile: Tile;
-  startTiles: Tile[];
   seenMatches: string[];
   history: number;
   action: string;
+  subItem: string;
 
+  public getSubItem() {
+    return this.subItem;
+  }
 
   constructor(private api: ApiService, private route: ActivatedRoute, private router: Router, private snackBar: MdSnackBar) {
     this.history = 0;
@@ -38,6 +41,7 @@ export class GamePlayComponent implements OnInit, OnDestroy {
 
     this.route.params.subscribe(params => {
       this.sockets = new SocketService(params["id"]);
+      this.subItem = params["subItem"];
 
       this.getGameData(params["id"]);
 
@@ -153,9 +157,11 @@ export class GamePlayComponent implements OnInit, OnDestroy {
       this.seenMatches.push(id1);
       this.seenMatches.push(id2);
 
-      for (const t of this.tiles) {
-        if (t._id === id1 || t._id === id2) {
-          t.hidden = true;
+      if (this.history === 0) {
+        for (const t of this.tiles) {
+          if (t._id === id1 || t._id === id2) {
+            t.hidden = true;
+          }
         }
       }
       // Isolate the two matched tiles

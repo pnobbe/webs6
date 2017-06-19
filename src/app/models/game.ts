@@ -41,6 +41,15 @@ export class Game {
   }
 
 
+  set isFavorite(bool: boolean) {
+    localStorage.setItem(this._id, bool ? "1" : "0");
+  }
+
+  get isFavorite(): boolean {
+    const v = localStorage.getItem(this._id);
+    return (v == null ? false : v === "1");
+  }
+
   get hasActions(): boolean {
     return this.canJoin || this.canStart
       || this.canPlay || this.canLeave || this.canDelete
