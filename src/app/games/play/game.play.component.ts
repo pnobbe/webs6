@@ -86,6 +86,7 @@ export class GamePlayComponent implements OnInit, OnDestroy {
         });
       } else {
         this.selectedTile.selected = false;
+        this.selectedTile = null;
         tile.selected = false;
         this.popup("Tiles do not match!");
       }
