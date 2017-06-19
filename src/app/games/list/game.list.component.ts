@@ -32,8 +32,6 @@ export class GameListComponent implements OnInit {
       });
     });
 
-
-    // TODO wait for socket calls -> on ANY socket call -> refresh
   }
 
   delete(game: Game) {

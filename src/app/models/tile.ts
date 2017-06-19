@@ -3,6 +3,7 @@ export class Tile {
   xPos: number;
   yPos: number;
   zPos: number;
+  hidden = false;
   tile: {
     _id: number;
     suit: string;
@@ -17,6 +18,13 @@ export class Tile {
 
   constructor(values: Object = {}) {
     Object.assign(this, values);
+    console.dir(this);
+    if (this.match !== null && this.match !== undefined) {
+      this.match.foundOn = this.match.foundOn == null ? null : new Date(this.match.foundOn);
+    } else {
+      this.match = null;
+    }
+
   }
 
   matches(tile: Tile): boolean {
