@@ -1,7 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
 import {Tile} from "../../models/tile";
-import {DomSanitizer} from "@angular/platform-browser";
-import {ApiService} from "../../api/api.service";
 
 @Component({
   selector: "app-board",
@@ -11,6 +9,7 @@ import {ApiService} from "../../api/api.service";
 export class GameBoardComponent implements OnInit {
 
   @Input() tiles: Tile[];
+  @Input() clickable: boolean;
   @Output() onTileSelected = new EventEmitter<Tile>();
 
   constructor() {

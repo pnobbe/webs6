@@ -36,11 +36,9 @@
   </div>
 
   <div *ngIf="getSubItem() === undefined || getSubItem() === 'board'">
-
-
     <!-- Draw lobby -->
     <div *ngIf="game.state === 'open' || game.state === 'finished' || !game.curUserInGame()">
-      <app-board [tiles]="tiles">
+      <app-board [tiles]="tiles" [clickable]="false">
       </app-board>
     </div>
     <!-- Draw board -->
@@ -48,7 +46,7 @@
       <button class="md-secondary" md-raised-button color="primary" *ngIf="game.state === 'playing' && game.curUserInGame()"
               (click)="getHint()">Hint
       </button>
-      <app-board [tiles]="tiles" (onTileSelected)="onSelected($event)">
+      <app-board [tiles]="tiles" [clickable]="(action === 'Playing')" (onTileSelected)="onSelected($event)">
       </app-board>
     </div>
   </div>
