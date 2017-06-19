@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, OnDestroy} from "@angular/core";
 import {ApiService} from "../../api/api.service";
 import {Game} from "../../models/game";
 import {ActivatedRoute} from "@angular/router";
@@ -15,7 +15,7 @@ import {GameTileOrderBy} from "../../game/board/game.board.orderby.pipe";
     "./game.play.component.scss"
   ]
 })
-export class GamePlayComponent implements OnInit {
+export class GamePlayComponent implements OnInit, OnDestroy {
 
   sockets: SocketService;
   game: Game;
@@ -23,9 +23,11 @@ export class GamePlayComponent implements OnInit {
   selectedTile: Tile;
   startTiles: Tile[];
   seenMatches: string[];
+  history: number;
 
 
   constructor(private api: ApiService, private route: ActivatedRoute) {
+    this.history = 0;
   }
 
   ngOnInit() {
@@ -51,10 +53,6 @@ export class GamePlayComponent implements OnInit {
       // match -> redraw board
       this.sockets.match().subscribe(data => {
         this.addMatch(data[0]._id, data[1]._id, data[0].match.foundOn, data[0].match.foundBy);
-
-        this.tiles = this.tiles.filter(function (tile) {
-          return tile._id !== data[0]._id && tile._id !== data[1]._id;
-        });
       });
     });
   }
@@ -79,45 +77,47 @@ export class GamePlayComponent implements OnInit {
     // load data
     this.api.games.getGame(id).then(newGame => {
 
-      if (newGame == null) {
-        return alert("Something went wrong!");
-      }
-      this.game = newGame;
+        if (newGame == null) {
+          return alert("Something went wrong!");
+        }
+        this.game = newGame;
 
-      // get tiles
-      if (this.game.state === "open") {
-        // game is in lobby, get template
-        this.api.templates.getTemplate(this.game.gameTemplate.id).then(template => {
-          this.tiles = template.tiles;
-        }).catch(err => {
-          console.error(err);
-        });
-      } else if (this.game.state === "playing") {
-        // game is in progress, get game tiles
-        this.api.games.gameTiles(this.game._id, false).then(tiles => {
-          this.startTiles = tiles;
+        // get tiles
+        if (this.game.state === "open") {
+          // game is in lobby, get template
+          this.api.templates.getTemplate(this.game.gameTemplate.id).then(template => {
+            this.tiles = template.tiles;
+          }).catch(err => {
+            console.error(err);
+          });
+        } else if (this.game.state === "playing") {
+          // game is in progress, get game tiles
+          this.api.games.gameTiles(this.game._id, false).then(tiles => {
+            this.tiles = tiles;
 
-          // filter out the already matched tiles
-          this.api.games.gameTiles(this.game._id, true).then(matchedTiles => {
+            // filter out the already matched tiles
+            const matches = tiles.filter(t => {
+              return t.match !== null && t.match.foundBy !== null;
+            }).sort((a, b) => {
+              return a.match.foundOn.getTime() - b.match.foundOn.getTime();
+            });
+
             this.seenMatches = [];
-            for (let i = 0; i < matchedTiles.length; i++) {
-              this.addMatch(matchedTiles[i]._id, matchedTiles[i].match.otherTileId,
-                matchedTiles[i].match.foundOn, matchedTiles[i].match.foundBy);
+            for (let i = 0; i < matches.length; i++) {
+              this.addMatch(matches[i]._id, matches[i].match.otherTileId,
+                matches[i].match.foundOn, matches[i].match.foundBy);
 
-              this.startTiles = this.startTiles.filter(function (tile) {
-                return tile._id !== matchedTiles[i]._id;
-              });
             }
             const orderByPipe = new GameTileOrderBy();
             this.tiles = orderByPipe.transform(this.startTiles);
+
             // provide the framework with data
             console.log(this.tiles);
           });
-        }).catch(err => {
-          console.error(err);
-        });
+
+        }
       }
-    }).catch(err => {
+    ).catch(err => {
       console.error(err);
     });
   }
@@ -127,8 +127,14 @@ export class GamePlayComponent implements OnInit {
       this.seenMatches.push(id1);
       this.seenMatches.push(id2);
 
+
+      for (const t of this.tiles) {
+        if (t._id === id1 || t._id === id2) {
+          t.hidden = true;
+        }
+      }
       // Isolate the two matched tiles
-      const tiles: Tile[] = this.startTiles.filter(function (tile) {
+      const tiles: Tile[] = this.tiles.filter(function (tile) {
         return tile._id === id1 || tile._id === id2;
       });
 
@@ -137,21 +143,21 @@ export class GamePlayComponent implements OnInit {
 
       // Set tiles
       if (tiles[0]._id === id1) {
-        m.tile1 = tiles[0];
-        m.tile2 = tiles[1];
+        m.tile1 = Object.assign({}, tiles[0]);
+        m.tile2 = Object.assign({}, tiles[1]);
       } else {
-        m.tile1 = tiles[1];
-        m.tile2 = tiles[0];
+        m.tile1 = Object.assign({}, tiles[1]);
+        m.tile2 = Object.assign({}, tiles[0]);
       }
 
       // Set finder
       m.foundOn = foundOn;
 
-      // Add to the game's list of matches
-      if (!this.game.matches[foundBy]) {
-        this.game.matches[foundBy] = [];
+      if (this.history !== 0) {
+        this.history++;
       }
-      this.game.matches[foundBy].push(m);
+      this.game.addMatch(m, foundBy);
+
     }
   }
 
@@ -163,6 +169,28 @@ export class GamePlayComponent implements OnInit {
 
   ngOnDestroy() {
     this.sockets.close();
+  }
+
+  previous() {
+
+    const match = this.game.getLastMatch(this.history);
+    for (const t of this.tiles) {
+      if (t._id === match.tile1._id || match.tile2._id === t._id) {
+        t.hidden = false;
+      }
+    }
+    this.history++;
+  }
+
+  next() {
+    this.history--;
+    const match = this.game.getLastMatch(this.history);
+
+    for (const t of this.tiles) {
+      if (t._id === match.tile1._id || match.tile2._id === t._id) {
+        t.hidden = true;
+      }
+    }
   }
 
 }

@@ -32,8 +32,6 @@ export class GameListComponent implements OnInit {
       });
     });
 
-
-    // TODO wait for socket calls -> on ANY socket call -> refresh
   }
 
   delete(game: Game) {
@@ -45,11 +43,6 @@ export class GameListComponent implements OnInit {
         });
       }
     });
-  }
-
-  details(game: Game) {
-    console.log("Show a div somewhere on page with all game info");
-    alert("see console");
   }
 
   play(game: Game) {

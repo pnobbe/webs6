@@ -18,6 +18,7 @@ export class Game {
   tiles: Tile[];
   matches: Match[][];
 
+  matchesHistory = [];
 
   constructor(values: Object = {}) {
     Object.assign(this, values);
@@ -41,7 +42,9 @@ export class Game {
 
 
   get hasActions(): boolean {
-    return this.canJoin || this.canStart || this.canPlay || this.canLeave || this.canDelete || this.canLobby;
+    return this.canJoin || this.canStart
+      || this.canPlay || this.canLeave || this.canDelete
+      || this.canLobby || this.canSpectate || this.canView;
   }
 
   get canJoin(): boolean {
@@ -64,6 +67,15 @@ export class Game {
   get canLobby(): boolean {
     return this.curUserInGame()
       && this.state === "open";
+  }
+
+  get canSpectate(): boolean {
+    return !this.curUserInGame()
+      && this.state === "playing";
+  }
+
+  get canView(): boolean {
+    return this.state === "finished";
   }
 
   get canLeave(): boolean {
@@ -93,6 +105,27 @@ export class Game {
     return this.inGame(ApiService.user_email);
   }
 
+
+  // get matches based on history
+  public getMatches(playerid, history) {
+    return this.matchesHistory.slice(0, this.matchesHistory.length - history).filter(c => {
+      return c.player === playerid;
+    }).map(c => {
+      return c.match;
+    });
+
+  }
+
+  public addMatch(match: Match, player: string) {
+    this.matchesHistory.push({player: player, match: match});
+  }
+
+  public getLastMatch(history) {
+    console.dir(this.matchesHistory);
+    console.dir(this.matchesHistory.length - history - 1);
+    console.dir(this.matchesHistory.length - history);
+    return this.matchesHistory.slice(this.matchesHistory.length - history - 1, this.matchesHistory.length - history)[0].match;
+  }
 
 }
 

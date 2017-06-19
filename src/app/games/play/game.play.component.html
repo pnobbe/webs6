@@ -1,12 +1,31 @@
 <div *ngIf="game; else loading">
   <div class="panel-heading">Game board for {{game._id}}</div>
 
-  <h1>Players</h1>
+  <div class="row">
+    <div class="col-md-8">
+      <h1>Players</h1>
+    </div>
+    <div class="col-md-3 offset-sm-1">
+      <h1>
+        <div class="row">
+
+          <button class="md-secondary col-xs-6" md-button color="accent" (click)="previous()" [disabled]="history >= (seenMatches != null ? seenMatches.length : 0) / 2">
+            Previous
+          </button>
+          <button class="md-secondary col-xs-6" md-button color="accent" (click)="next()"  [disabled]="history <= 0">Next
+          </button>
+        </div>
+      </h1>
+    </div>
+
+
+  </div>
   <div class="row box">
     <div *ngFor="let player of game.players">
-      <app-player [player]="player" [matches]="game.matches[player._id]"></app-player>
+      <app-player [player]="player" [matches]="game.getMatches(player._id, history)"></app-player>
     </div>
   </div>
+
 
   <!-- Draw lobby -->
   <div *ngIf="game.state === 'open'">
@@ -16,17 +35,12 @@
   </div>
 
   <!-- Draw board -->
-  <div *ngIf="game.state === 'playing'">
+  <div *ngIf="game.state === 'playing' || game.state === 'finished'">
     <h1>Board</h1>
     <button class="md-secondary" md-raised-button color="primary" (click)="getHint()">Hint
     </button>
     <app-board [tiles]="tiles" (onTileSelected)="onSelected($event)">
     </app-board>
-  </div>
-
-  <!-- Draw finished -->
-  <div *ngIf="game.state === 'finished'">
-    <h1>Game is finished!</h1>
   </div>
 </div>
 
