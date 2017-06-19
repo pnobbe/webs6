@@ -22,7 +22,10 @@ export class GameTileComponent implements OnInit {
   }
 
   get getId(): string {
-    return this.tile._id;
+    if (this.tile._id) {
+      return this.tile._id;
+    }
+    return "";
   }
 
   get getImageURL(): string {

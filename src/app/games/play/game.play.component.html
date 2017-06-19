@@ -1,4 +1,3 @@
-
 <div *ngIf="game; else loading">
   <div class="panel-heading">Game board for {{game._id}}</div>
 
@@ -19,6 +18,8 @@
   <!-- Draw board -->
   <div *ngIf="game.state === 'playing'">
     <h1>Board</h1>
+    <button class="md-secondary" md-raised-button color="primary" (click)="getHint()">Hint
+    </button>
     <app-board [tiles]="tiles" (onTileSelected)="onSelected($event)">
     </app-board>
   </div>

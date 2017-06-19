@@ -34,6 +34,9 @@ export class Game {
       return new Tile(tile);
     });
 
+    this.minPlayers = 2;
+    this.maxPlayers = 2;
+
   }
 
 

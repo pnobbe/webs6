@@ -12,21 +12,20 @@ export class GameBoardComponent implements OnInit {
 
   @Input() tiles: Tile[];
   @Output() onTileSelected = new EventEmitter<Tile>();
-  private selectedTile: Tile;
 
-  constructor(private sanitizer: DomSanitizer, private api: ApiService) {
+  constructor() {
   }
 
   ngOnInit() {
-
+    console.log(this.tiles);
   }
 
   get getHeight(): number {
-    return this.getWidth;
+    return 550;
   }
 
   get getWidth(): number {
-    return 1000;
+    return this.getHeight * 1.37;
   }
 
   onSelected(tile: Tile) {

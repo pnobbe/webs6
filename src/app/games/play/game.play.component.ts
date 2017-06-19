@@ -5,6 +5,8 @@ import {ActivatedRoute} from "@angular/router";
 import {SocketService} from "./socket.service";
 import {Tile} from "../../models/tile";
 import {Match} from "../../models/match";
+import {GameTileMatrix} from "../../game/board/game.board.matrix.pipe";
+import {GameTileOrderBy} from "../../game/board/game.board.orderby.pipe";
 
 @Component({
   selector: "app-game-play",
@@ -106,8 +108,8 @@ export class GamePlayComponent implements OnInit {
                 return tile._id !== matchedTiles[i]._id;
               });
             }
-
-            this.tiles = this.startTiles;
+            const orderByPipe = new GameTileOrderBy();
+            this.tiles = orderByPipe.transform(this.startTiles);
             // provide the framework with data
             console.log(this.tiles);
           });
@@ -151,6 +153,12 @@ export class GamePlayComponent implements OnInit {
       }
       this.game.matches[foundBy].push(m);
     }
+  }
+
+  getHint() {
+    const matrixPipe = new GameTileMatrix();
+    const orderByPipe = new GameTileOrderBy();
+    matrixPipe.transform(orderByPipe.transform(this.tiles));
   }
 
   ngOnDestroy() {
