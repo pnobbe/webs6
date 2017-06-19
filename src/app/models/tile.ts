@@ -18,6 +18,7 @@ export class Tile {
   selectable: boolean;
   hint: boolean;
   historyTile: boolean;
+  selected: boolean;
 
   constructor(values: Object = {}) {
     Object.assign(this, values);
@@ -29,6 +30,7 @@ export class Tile {
     this.selectable = false;
     this.hint = false;
     this.historyTile = false;
+    this.selected = false;
   }
 
   matches(tile: Tile): boolean {

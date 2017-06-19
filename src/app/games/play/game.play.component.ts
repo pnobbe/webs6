@@ -76,16 +76,19 @@ export class GamePlayComponent implements OnInit, OnDestroy {
 
   onSelected(tile: Tile) {
     if (!this.selectedTile) {
-      console.log("Selected first tile.");
       this.selectedTile = tile;
     } else {
-      console.log("Selected second tile.");
-      const selTile = this.selectedTile;
-      this.selectedTile = null;
-      if (selTile.matches(tile)) {
-        this.api.games.matchTiles(this.game._id, selTile._id, tile._id);
+      if (this.selectedTile.matches(tile)) {
+        this.api.games.matchTiles(this.game._id, this.selectedTile._id, tile._id).then(data => {
+          this.selectedTile.selected = false;
+          tile.selected = false;
+          this.selectedTile = null;
+        });
+      } else {
+        this.selectedTile.selected = false;
+        tile.selected = false;
+        this.popup("Tiles do not match!");
       }
-
     }
   }
 
@@ -105,7 +108,6 @@ export class GamePlayComponent implements OnInit, OnDestroy {
           this.api.templates.getTemplate(this.game.gameTemplate.id).then(template => {
             this.tiles = template.tiles;
             this.action = "Lobby";
-            // todo turn off clicks/hover
           }).catch(err => {
             console.error(err);
           });
@@ -184,9 +186,11 @@ export class GamePlayComponent implements OnInit, OnDestroy {
 
       m.tile1.selectable = false;
       m.tile1.hint = false;
+      m.tile1.selected = false;
 
       m.tile2.selectable = false;
       m.tile2.hint = false;
+      m.tile2.selected = false;
 
       // Set finder
       m.foundOn = foundOn;

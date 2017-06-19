@@ -12,10 +12,8 @@ export class GameTileComponent implements OnInit {
   @Output() onSelected = new EventEmitter<Tile>();
   @Input() size: number;
   @Input() tile: Tile;
-  private selected: boolean;
 
-  constructor(private sanitizer: DomSanitizer, private api: ApiService) {
-    this.selected = false;
+  constructor(private api: ApiService) {
   }
 
   ngOnInit() {
@@ -61,9 +59,8 @@ export class GameTileComponent implements OnInit {
 
   onClick(tile: Tile) {
     if (tile.tile && this.tile.selectable) {
-      console.log("Clicked " + tile.tile.suit + " " + tile.tile.name + " " + tile._id);
+      this.tile.selected = !this.tile.selected;
       this.onSelected.emit(tile);
-      this.selected = !this.selected;
       return;
     }
     console.log("Tile is not clickable");

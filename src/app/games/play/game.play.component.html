@@ -9,9 +9,6 @@
   <button class="md-secondary" md-raised-button color="primary" *ngIf="game.canDelete" (click)="delete()">
     Delete
   </button>
-  <button class="md-secondary" md-raised-button color="primary" *ngIf="game.state === 'playing' && game.curUserInGame()"
-          (click)="getHint()">Hint
-  </button>
   <div class="row">
     <div class="col-md-8">
       <h1>Players</h1>
@@ -48,6 +45,9 @@
     </div>
     <!-- Draw board -->
     <div *ngIf="game.state === 'playing' && game.curUserInGame()">
+      <button class="md-secondary" md-raised-button color="primary" *ngIf="game.state === 'playing' && game.curUserInGame()"
+              (click)="getHint()">Hint
+      </button>
       <app-board [tiles]="tiles" (onTileSelected)="onSelected($event)">
       </app-board>
     </div>

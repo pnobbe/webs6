@@ -6,7 +6,7 @@
       <fePointLight [attr.x]="getXPos" [attr.y]="getYPos" z="50" />
     </feDiffuseLighting>
 
-    <feDiffuseLighting *ngIf="selected" in="SourceGraphic" result="light"
+    <feDiffuseLighting *ngIf="tile.selected" in="SourceGraphic" result="light"
                        lighting-color="rgba(182,255,182,0.1)">
       <fePointLight [attr.x]="getXPos" [attr.y]="getYPos" z="50" />
     </feDiffuseLighting>
@@ -14,7 +14,7 @@
     <feComposite *ngIf="tile.hint" in="SourceGraphic" in2="light"
                  operator="arithmetic" k1="1" k2="0" k3="0" k4="0"/>
 
-    <feComposite *ngIf="selected" in="SourceGraphic" in2="light"
+    <feComposite *ngIf="tile.selected" in="SourceGraphic" in2="light"
                  operator="arithmetic" k1="1" k2="0" k3="0" k4="0"/>
   </filter>
 </svg:defs>
