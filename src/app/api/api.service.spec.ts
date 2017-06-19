@@ -3,7 +3,6 @@ import {ApiService} from "./api.service";
 
 
 describe("GameListComponent", () => {
-  const service: ApiService;
 
   beforeEach(async(() => {
 
