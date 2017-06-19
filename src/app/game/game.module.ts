@@ -4,15 +4,16 @@ import {GameBoardComponent} from "./board/game.board.component";
 import {GameTileComponent} from "./tile/game.tile.component";
 import {MenuModule} from "../menu/menu.module";
 import {GameTileOrderBy} from "./board/game.board.orderby.pipe";
-import { PlayerComponent } from './player/player.component';
-import { MatchComponent } from './match/match.component';
-import {Match} from "../models/match";
+import {PlayerComponent} from "./player/player.component";
+import {MatchComponent} from "./match/match.component";
+import {MaterialDesignModule} from "../materialdesign.module";
 
 @NgModule({
 
   imports: [
     CommonModule,
     MenuModule,
+    MaterialDesignModule
   ],
   declarations: [GameBoardComponent, GameTileComponent, GameTileOrderBy, PlayerComponent, MatchComponent],
   providers: [],

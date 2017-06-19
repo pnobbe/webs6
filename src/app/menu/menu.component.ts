@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, Output, EventEmitter, OnInit } from "@angular/core";
 import {Router} from "@angular/router";
 import {ApiService} from "../api/api.service";
 
@@ -8,14 +8,20 @@ import {ApiService} from "../api/api.service";
 })
 export class MenuComponent implements OnInit {
   public title = "Space Mayhem";
+  @Output() themeUpdated = new EventEmitter();
 
   constructor(private router: Router, private api: ApiService) {
+
   }
 
   ngOnInit(): void {
-    if (this.api.users.email == null) {
+    if (!this.api.users.isLoggedIn) {
       this.router.navigate(["login"]);
     }
+  }
+
+  setTheme(string): void {
+    this.themeUpdated.emit(string);
   }
 
   logout(): void {
