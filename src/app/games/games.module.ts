@@ -40,6 +40,17 @@ import {ScrollGlue} from "./logger/scrollglue.directive";
 export class GamesModule {
 }
 
+const playSubRoutes = <Routes>[
+  {
+    path: "",
+    component: GamePlayComponent
+  },
+  {
+    path: ":subItem",
+    component: GamePlayComponent
+  }
+];
+
 export const gameRoutes = <Routes>[
   {
     path: "create",
@@ -47,7 +58,7 @@ export const gameRoutes = <Routes>[
   },
   {
     path: "play/:id",
-    component: GamePlayComponent
+    children: playSubRoutes
   },
   {
     path: ":status",

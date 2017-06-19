@@ -29,7 +29,11 @@ export class GamePlayComponent implements OnInit, OnDestroy {
   seenMatches: string[];
   history: number;
   action: string;
+  subItem: string;
 
+  public getSubItem() {
+    return this.subItem;
+  }
 
   constructor(private api: ApiService, private route: ActivatedRoute, private router: Router, private snackBar: MdSnackBar) {
     this.history = 0;
@@ -40,6 +44,7 @@ export class GamePlayComponent implements OnInit, OnDestroy {
 
     this.route.params.subscribe(params => {
       this.sockets = new SocketService(params["id"]);
+      this.subItem = params["subItem"];
 
       this.getGameData(params["id"]);
 

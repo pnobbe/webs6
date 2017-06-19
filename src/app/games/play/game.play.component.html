@@ -32,22 +32,25 @@
 
 
   </div>
-  <div class="row box">
+  <div class="row box" *ngIf="getSubItem() === undefined || getSubItem() === 'history'">
     <div *ngFor="let player of game.players">
       <app-player [player]="player" [matches]="game.getMatches(player._id, history)"></app-player>
     </div>
   </div>
 
+  <div *ngIf="getSubItem() === undefined || getSubItem() === 'board'">
 
-  <!-- Draw lobby -->
-  <div *ngIf="game.state === 'open' || game.state === 'finished' || !game.curUserInGame()">
-    <app-board [tiles]="tiles">
-    </app-board>
-  </div>
-  <!-- Draw board -->
-  <div *ngIf="game.state === 'playing' && game.curUserInGame()">
-    <app-board [tiles]="tiles" (onTileSelected)="onSelected($event)">
-    </app-board>
+
+    <!-- Draw lobby -->
+    <div *ngIf="game.state === 'open' || game.state === 'finished' || !game.curUserInGame()">
+      <app-board [tiles]="tiles">
+      </app-board>
+    </div>
+    <!-- Draw board -->
+    <div *ngIf="game.state === 'playing' && game.curUserInGame()">
+      <app-board [tiles]="tiles" (onTileSelected)="onSelected($event)">
+      </app-board>
+    </div>
   </div>
 
 </div>
