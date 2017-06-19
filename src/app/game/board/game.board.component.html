@@ -1,8 +1,8 @@
-<div class="row box">
+<div class="row">
   <div *ngIf="tiles">
-    <svg [attr.width]="getWidth + 'px'" [attr.height]="getHeight + 'px'" xmlns="http://www.w3.org/2000/svg">
+    <svg class="board" [attr.width]="getWidth + 'px'" [attr.height]="getHeight + 'px'" xmlns="http://www.w3.org/2000/svg">
       <ng-container *ngFor="let tile of tiles | gameTileOrderBy;">
-        <g app-tile [tile]="tile" (onSelected)="onSelected($event)"></g>
+        <g app-tile [size]="1" [tile]="tile" (onSelected)="onSelected($event)"></g>
       </ng-container>
     </svg>
   </div>

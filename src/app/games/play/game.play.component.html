@@ -5,9 +5,9 @@
 
   <h1>Players</h1>
   <div class="row box">
-    <ul *ngFor="let player of game.players">
-      <li>{{player.name}}</li>
-    </ul>
+    <div *ngFor="let player of game.players">
+      <app-player [player]="player" [matches]="game.matches[player._id]"></app-player>
+    </div>
   </div>
 
   <!-- Draw lobby -->
@@ -29,3 +29,7 @@
     <h1>Game is finished!</h1>
   </div>
 </div>
+
+<ng-template #loading>
+  <h3>Loading...</h3>
+</ng-template>

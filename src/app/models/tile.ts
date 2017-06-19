@@ -9,6 +9,11 @@ export class Tile {
     name: string;
     matchesWholeSuit: boolean;
   };
+  match: {
+    foundBy: string;
+    foundOn: Date;
+    otherTileId: string;
+  };
 
   constructor(values: Object = {}) {
     Object.assign(this, values);
@@ -27,7 +32,7 @@ export class Tile {
       console.error("Selected tiles have no matching suit.");
       return false;
     }
-    console.error("Same tile selected twice.");
+    console.log("Deselecting tile");
     return false;
   }
 

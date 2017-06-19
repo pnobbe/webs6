@@ -2,6 +2,7 @@ import {User} from "./user";
 import {GameTemplate} from "./game-template";
 import {Tile} from "./tile";
 import {ApiService} from "../api/api.service";
+import {Match} from "./match";
 
 export class Game {
   _id: string;
@@ -15,10 +16,14 @@ export class Game {
   players: User[];
   state: string;
   tiles: Tile[];
+  matches: Match[][];
+
 
 
   constructor(values: Object = {}) {
     Object.assign(this, values);
+
+    this.matches = [];
 
     // casting
     this.players = this.players == null ? <User[]>[] : this.players.map(user => {

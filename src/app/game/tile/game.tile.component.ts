@@ -10,13 +10,12 @@ import {ApiService} from "../../api/api.service";
 })
 export class GameTileComponent implements OnInit {
   @Output() onSelected = new EventEmitter<Tile>();
+  @Input() size: number;
   @Input() tile: Tile;
   private selected: boolean;
-  private size: number;
 
   constructor(private sanitizer: DomSanitizer, private api: ApiService) {
     this.selected = false;
-    this.size = 1;
   }
 
   ngOnInit() {

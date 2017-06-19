@@ -4,6 +4,9 @@ import {GameBoardComponent} from "./board/game.board.component";
 import {GameTileComponent} from "./tile/game.tile.component";
 import {MenuModule} from "../menu/menu.module";
 import {GameTileOrderBy} from "./board/game.board.orderby.pipe";
+import { PlayerComponent } from './player/player.component';
+import { MatchComponent } from './match/match.component';
+import {Match} from "../models/match";
 
 @NgModule({
 
@@ -11,9 +14,9 @@ import {GameTileOrderBy} from "./board/game.board.orderby.pipe";
     CommonModule,
     MenuModule,
   ],
-  declarations: [GameBoardComponent, GameTileComponent, GameTileOrderBy],
+  declarations: [GameBoardComponent, GameTileComponent, GameTileOrderBy, PlayerComponent, MatchComponent],
   providers: [],
-  exports: [GameBoardComponent]
+  exports: [GameBoardComponent, PlayerComponent, MatchComponent]
 })
 export class GameModule {
 }

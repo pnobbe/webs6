@@ -16,7 +16,6 @@ export class GameCreateComponent implements OnInit {
   gameTemplates: GameTemplate[] = [];
   model: Game;
 
-
   constructor(private api: ApiService, private router: Router) {
   }
 
@@ -28,7 +27,6 @@ export class GameCreateComponent implements OnInit {
       for (const entry of templates) {
         this.gameTemplates[entry.id] = entry;
       }
-      console.log(this.gameTemplates);
     });
   }
 
@@ -39,9 +37,7 @@ export class GameCreateComponent implements OnInit {
       }
       this.router.navigate(["games"]);
     }).catch(err => {
-      // TODO err.errors contains array of errors. show beautiful
-      alert(err);
-      console.log(err);
+      console.error(err);
     });
   }
 
