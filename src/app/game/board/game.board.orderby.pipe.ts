@@ -6,7 +6,7 @@ import {Tile} from "../../models/tile";
 })
 
 export class GameTileOrderBy implements PipeTransform {
-  transform(array: Array<Tile>, args: string): Array<Tile> {
+  transform(array: Tile[]): Tile[] {
     array.sort((a: Tile, b: Tile) => {
       if (a.zPos < b.zPos) {
         return -1;

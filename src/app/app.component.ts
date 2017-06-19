@@ -9,7 +9,7 @@ import {Router} from "@angular/router";
   <div class="header-screen"></div>
   <div class="main">
     <app-menu *ngIf="this.api.users.isLoggedIn"  (themeUpdated)="handleTheme($event)" ></app-menu>
-    <div class="box container">
+    <div class="container">
      <router-outlet></router-outlet>
     </div>
 
@@ -24,9 +24,9 @@ export class AppComponent {
   constructor(private api: ApiService, private router: Router) {
     console.log(this.router.url);
 
-    const audio = new Audio("assets/bgmusic.mp3");
-    audio.loop = true;
-    audio.play();
+    // const audio = new Audio("assets/bgmusic.mp3");
+    // audio.loop = true;
+    // audio.play();
   }
 
   handleTheme(theme) {

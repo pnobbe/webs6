@@ -8,6 +8,8 @@ import {Match} from "../../models/match";
 import {User} from "../../models/user";
 import {Router} from "@angular/router";
 import {MdSnackBar, MdSnackBarConfig} from "@angular/material";
+import {GameTileMatrix} from "../../game/board/game.board.matrix.pipe";
+import {GameTileOrderBy} from "../../game/board/game.board.orderby.pipe";
 
 @Component({
   selector: "app-game-play",
@@ -122,6 +124,9 @@ export class GamePlayComponent implements OnInit, OnDestroy {
                 matches[i].match.foundOn, matches[i].match.foundBy);
 
             }
+            const orderByPipe = new GameTileOrderBy();
+            this.tiles = orderByPipe.transform(this.startTiles);
+
             // provide the framework with data
             console.log(this.tiles);
           });
@@ -186,6 +191,12 @@ export class GamePlayComponent implements OnInit, OnDestroy {
       this.game.addMatch(m, foundBy);
 
     }
+  }
+
+  getHint() {
+    const matrixPipe = new GameTileMatrix();
+    const orderByPipe = new GameTileOrderBy();
+    matrixPipe.transform(orderByPipe.transform(this.tiles));
   }
 
   ngOnDestroy() {
