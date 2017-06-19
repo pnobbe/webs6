@@ -121,6 +121,7 @@ export class GameApi extends Connection {
 
   public matchTiles(gameId: string, tile1Id: string, tile2Id: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
+      console.log(`games/${gameId}/tiles` + tile1Id + " " + tile2Id);
       this.put(`games/${gameId}/tiles`, {
         tile1Id: tile1Id,
         tile2Id: tile2Id

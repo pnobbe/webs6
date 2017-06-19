@@ -19,7 +19,6 @@ export class Game {
   matches: Match[][];
 
 
-
   constructor(values: Object = {}) {
     Object.assign(this, values);
 
@@ -66,7 +65,7 @@ export class Game {
 
   get canLeave(): boolean {
     return this.curUserInGame()
-      // && this.createdBy._id !== ApiService.user_email
+      && this.createdBy._id !== ApiService.user_email
       && this.state === "open";
   }
 

@@ -10,6 +10,7 @@ export class MenuComponent implements OnInit {
   public title = "Space Mayhem";
   @Output() themeUpdated = new EventEmitter();
 
+  public theme = "";
   constructor(private router: Router, private api: ApiService) {
 
   }
@@ -20,8 +21,9 @@ export class MenuComponent implements OnInit {
     }
   }
 
-  setTheme(string): void {
-    this.themeUpdated.emit(string);
+  setTheme(event): void {
+    console.log(event.value);
+    this.themeUpdated.emit(event.value);
   }
 
   logout(): void {

@@ -1,19 +1,15 @@
-
-$font-header: bazar, sans-serif;
-
-
 // Define an alternate  theme.
-$classic-primary: mat-palette($mat-amber);
-$classic-accent: mat-palette($mat-deep-purple);
+$classic-primary: mat-palette($mat-brown);
+$classic-accent: mat-palette($mat-brown);
 $classic-theme: mat-light-theme($classic-primary, $classic-accent);
-$classic-background-hover-color: rgba(255, 179, 0, .7);
-$classic-background-image: url("assets/space.jpg");
-$classic-header-text-color: #f5f5f5;
-$classic-container-background: rgba(255, 179, 0, .3);
-$classic-color: #a84749;
+//$classic-background-hover-color: rgba(255, 179, 0, .7);
+$classic-background-image: url("assets/classic.png");
+//$classic-header-text-color: #f5f5f5;
+//$classic-container-background: rgba(255, 179, 0, .3);
+//$classic-color: #a84749;
 // Include the default theme styles.
 .classic-theme {
   @include angular-material-theme($classic-theme);
-  @include pageLayout($classic-color, $classic-color, $classic-background-hover-color, $classic-background-image, $classic-header-text-color, $classic-container-background);
+  @include pageLayout($classic-theme, $classic-background-image);
 
 }

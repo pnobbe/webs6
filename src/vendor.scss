@@ -1,5 +1,7 @@
 @import "~@angular/material/theming";
 @import "main";
+@import "~bootstrap-sass/assets/stylesheets/_bootstrap-sprockets.scss";
+@import "~bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 
 @include mat-core();
 $font-header: bazar, sans-serif;

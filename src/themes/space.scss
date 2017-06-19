@@ -2,11 +2,14 @@
 $space-primary: mat-palette($mat-teal);
 $space-accent: mat-palette($mat-teal);
 $space-theme: mat-light-theme($space-primary, $space-accent);
-$space-background-hover-color: rgba(43, 237, 230, .2);
+//$space-background-hover-color: rgba(43, 237, 230, .2);
 $space-background-image: url("assets/space.jpg");
-$space-header-text-color: #f5f5f5;
-$space-container-background: rgba(30, 163, 158, .3);
-$space-color: #00796b;
+//$space-header-text-color: #f5f5f5;
+//$space-container-background: rgba(30, 163, 158, .3);
+//$space-color: #00796b;
 // Include the default theme styles.
 @include angular-material-theme($space-theme);
-@include pageLayout($space-color, $space-color, $space-background-hover-color, $space-background-image, $space-header-text-color, $space-container-background);
+@include pageLayout($space-theme, $space-background-image);
+@include box($space-theme);
+@include shadow($space-theme);
+@include customPanels();

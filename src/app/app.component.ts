@@ -5,9 +5,16 @@ import {Router} from "@angular/router";
 @Component({
   selector: "app-root",
   template: `
-  <div  [className]="theme">
+  <div id="app" [className]="theme">
+  <div class="header-screen"></div>
+  <div class="main">
     <app-menu *ngIf="this.api.users.isLoggedIn"  (themeUpdated)="handleTheme($event)" ></app-menu>
-    <router-outlet></router-outlet>
+    <div class="box container">
+     <router-outlet></router-outlet>
+    </div>
+
+  </div>
+
   </div>`
 })
 export class AppComponent {

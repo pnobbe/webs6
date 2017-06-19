@@ -91,4 +91,5 @@ export class GameListComponent implements OnInit {
     return this.api.users.getMe()._id;
   }
 
+
 }
