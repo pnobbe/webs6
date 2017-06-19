@@ -23,6 +23,10 @@ export class AppComponent {
 
   constructor(private api: ApiService, private router: Router) {
     console.log(this.router.url);
+
+    const audio = new Audio("assets/bgmusic.mp3");
+    audio.loop = true;
+    audio.play();
   }
 
   handleTheme(theme) {

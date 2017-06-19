@@ -17,9 +17,24 @@
   }
 
   .text {
-    color: $accent-color;
+    color: $primary-color;
     text-transform: uppercase;
     font-family: $font-header;
+    text-shadow: none;
+  }
+
+  .site-name {
+    @extend .text;
+    font-family: "Titillium Web", sans-serif;
+    font-size: 45px;
+    height: auto;
+    line-height: 40px;
+    text-align: center;
+    color: $accent-color;
+    text-shadow: $primary-color 0px 0px 10px;
+    text-size-adjust: 100%;
+    width: auto;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   }
 
   .header-screen {
@@ -53,13 +68,18 @@
     border-color: #ddd;
   }
 
+  .mat-select-value-text, .mat-select-trigger {
+    color: white !important;
+  }
+
 }
 
 @mixin shadow($theme) {
   $primary-color: mat-color(map-get($theme, primary));
   $accent-color: mat-color(map-get($theme, accent));
-  .main {
-    text-shadow: 0 0 10px $accent-color;
+  .text, .main {
+    color: $accent-color;
+    text-shadow: 0 0 10px $primary-color;
   }
 }
 
@@ -81,9 +101,10 @@
 }
 
 @mixin customPanels() {
-  
+
   .panel-body, .panel-default {
     background: none;
+
   }
   .panel-default > .panel-heading, .panel-default > .panel-footer {
     background-color: rgba(255, 255, 255, 0.3);

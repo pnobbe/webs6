@@ -2,9 +2,25 @@
 @import "main";
 @import "~bootstrap-sass/assets/stylesheets/_bootstrap-sprockets.scss";
 @import "~bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web');
 
 @include mat-core();
 $font-header: bazar, sans-serif;
 
 @import "themes/space";
 @import "themes/classic";
+
+
+
+#preloader-container {
+  background-color: #000000;
+  position: absolute;
+  z-index: 99;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+#preloader-image {
+  margin-top: 150px;
+}

@@ -17,8 +17,8 @@ Games list
            [style.background-repeat]="'no-repeat'"
            [style.background-size]="'cover'">
         <div class="panel-heading header">
-          <h4>{{game.gameTemplate.id}} - {{game.createdBy.name}}</h4>
-          <h6 class="mb-2 text-muted">{{game.state}}</h6>
+          <h4 class="text">{{game.gameTemplate.id}} - {{game.createdBy.name}}</h4>
+          <h6 class="text">{{game.state}}</h6>
         </div>
         <div class="panel-body">
           <p> {{game.players.length}} / {{game.maxPlayers}}</p>

@@ -1,16 +1,18 @@
-<h1 class="text">{{title}}</h1>
-<button md-raised-button color="primary" routerLink="/games" routerLinkActive="active">Game list</button>
-<button md-raised-button color="primary" routerLink="/games/create" routerLinkActive="active">Create Game</button>
-<button md-raised-button color="primary" (click)="logout()">Log out</button>
-<md-select placeholder="Theme"
-           (change)="setTheme($event)">
-  <md-option [value]="'space-theme'">
-    Default
-  </md-option>
-  <md-option [value]="'classic-theme'">
-    Classic
-  </md-option>
-</md-select>
+<h1 class="site-name">{{title}}</h1>
+<div class="text-center">
+  <button md-raised-button color="primary" routerLink="/games" routerLinkActive="active">Game list</button>
+  <button md-raised-button color="primary" routerLink="/games/create" routerLinkActive="active">Create Game</button>
+  <button md-raised-button color="primary" (click)="logout()">Log out</button>
+  <md-select placeholder="Theme"
+             (change)="setTheme($event)">
+    <md-option [value]="'space-theme'">
+      Default
+    </md-option>
+    <md-option [value]="'classic-theme'">
+      Classic
+    </md-option>
+  </md-select>
+</div>
 
 
 <hr>
