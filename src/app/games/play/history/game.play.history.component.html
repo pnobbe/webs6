@@ -1,0 +1,25 @@
+<div *ngIf="game">
+  <div class="row">
+    <div class="col-md-8">
+      <h1>Players</h1>
+    </div>
+    <div class="col-md-3 offset-sm-1">
+      <h1>
+        <div class="row">
+
+          <button class="md-secondary col-xs-6" md-button color="accent" (click)="previous()"
+                  [disabled]="history >= (seenMatches != null ? seenMatches.length : 0) / 2">
+            Previous
+          </button>
+          <button class="md-secondary col-xs-6" md-button color="accent" (click)="next()" [disabled]="history <= 0">Next
+          </button>
+        </div>
+      </h1>
+    </div>
+  </div>
+  <div class="row box">
+    <div *ngFor="let player of game.players">
+      <app-player [player]="player" [matches]="game.getMatches(player._id, history)"></app-player>
+    </div>
+  </div>
+</div>

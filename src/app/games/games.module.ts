@@ -13,6 +13,9 @@ import {KeyPipe} from "./create/game.create.transform.pipe";
 import {MaterialDesignModule} from "../materialdesign.module";
 import {LoggerComponent} from "./logger/logger.component";
 import {ScrollGlue} from "./logger/scrollglue.directive";
+import {GameBoardComponent} from "../game/board/game.board.component";
+import {GamePlayBoardComponent} from "./play/board/game.play.board.component";
+import {GamePlayHistoryComponent} from "./play/history/game.play.history.component";
 @NgModule({
 
   imports: [
@@ -28,6 +31,8 @@ import {ScrollGlue} from "./logger/scrollglue.directive";
     GameListComponent,
     GameCreateComponent,
     GamePlayComponent,
+    GamePlayBoardComponent,
+    GamePlayHistoryComponent,
     GameListFilterPipe,
     KeyPipe,
     LoggerComponent,
@@ -46,8 +51,12 @@ const playSubRoutes = <Routes>[
     component: GamePlayComponent
   },
   {
-    path: ":subItem",
-    component: GamePlayComponent
+    path: "board",
+    component: GamePlayBoardComponent
+  },
+  {
+    path: "history",
+    component: GamePlayHistoryComponent
   }
 ];
 

@@ -9,47 +9,18 @@
   <button class="md-secondary" md-raised-button color="primary" *ngIf="game.canDelete" (click)="delete()">
     Delete
   </button>
-  <div class="row">
-    <div class="col-md-8">
-      <h1>Players</h1>
-    </div>
-    <div class="col-md-3 offset-sm-1">
-      <h1>
-        <div class="row">
 
-          <button class="md-secondary col-xs-6" md-button color="accent" (click)="previous()"
-                  [disabled]="history >= (seenMatches != null ? seenMatches.length : 0) / 2">
-            Previous
-          </button>
-          <button class="md-secondary col-xs-6" md-button color="accent" (click)="next()" [disabled]="history <= 0">Next
-          </button>
-        </div>
-      </h1>
-    </div>
+  <button class="md-secondary" md-raised-button color="primary" routerLink="board" routerLinkActive="active">
+    Show Board
+  </button>
+  <button class="md-secondary" md-raised-button color="primary" routerLink="history" routerLinkActive="active">
+   Show History
+  </button>
+  <app-game-play-history [inpGame]="game" [inpTiles]="tiles" [inpHistory]="history" [inpSeenMatches]="seenMatches"
+                         (outTiles)="onTiles($event)"></app-game-play-history>
 
-
-  </div>
-  <div class="row box" *ngIf="getSubItem() === undefined || getSubItem() === 'history'">
-    <div *ngFor="let player of game.players">
-      <app-player [player]="player" [matches]="game.getMatches(player._id, history)"></app-player>
-    </div>
-  </div>
-
-  <div *ngIf="getSubItem() === undefined || getSubItem() === 'board'">
-    <!-- Draw lobby -->
-    <div *ngIf="game.state === 'open' || game.state === 'finished' || !game.curUserInGame()">
-      <app-board [tiles]="tiles" [clickable]="false">
-      </app-board>
-    </div>
-    <!-- Draw board -->
-    <div *ngIf="game.state === 'playing' && game.curUserInGame()">
-      <button class="md-secondary" md-raised-button color="primary" *ngIf="game.state === 'playing' && game.curUserInGame()"
-              (click)="getHint()">Hint
-      </button>
-      <app-board [tiles]="tiles" [clickable]="(action === 'Playing')" (onTileSelected)="onSelected($event)">
-      </app-board>
-    </div>
-  </div>
+  <app-game-play-board [inpGame]="game" [inpAction]="action" [inpTiles]="tiles"
+                       [history]="history"></app-game-play-board>
 
 </div>
 

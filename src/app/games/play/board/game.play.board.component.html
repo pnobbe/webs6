@@ -1,0 +1,25 @@
+<div *ngIf="game; else loading">
+
+
+  <div>
+    <!-- Draw lobby -->
+    <div *ngIf="game.state === 'open' || game.state === 'finished' || !game.curUserInGame()">
+      <app-board [tiles]="tiles" [clickable]="false">
+      </app-board>
+    </div>
+    <!-- Draw board -->
+    <div *ngIf="game.state === 'playing' && game.curUserInGame()">
+      <button class="md-secondary" md-raised-button color="primary"
+              *ngIf="game.state === 'playing' && game.curUserInGame()"
+              (click)="getHint()">Hint
+      </button>
+      <app-board [tiles]="tiles" [clickable]="(action === 'Playing')" (onTileSelected)="onSelected($event)">
+      </app-board>
+    </div>
+  </div>
+
+</div>
+
+<ng-template #loading>
+  <h3>Loading...</h3>
+</ng-template>
