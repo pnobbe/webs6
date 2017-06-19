@@ -159,10 +159,11 @@ export class GamePlayComponent implements OnInit, OnDestroy {
       this.seenMatches.push(id1);
       this.seenMatches.push(id2);
 
-
-      for (const t of this.tiles) {
-        if (t._id === id1 || t._id === id2) {
-          t.hidden = true;
+      if (this.history === 0) {
+        for (const t of this.tiles) {
+          if (t._id === id1 || t._id === id2) {
+            t.hidden = true;
+          }
         }
       }
       // Isolate the two matched tiles
