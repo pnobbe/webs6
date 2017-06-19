@@ -208,7 +208,7 @@ export class GamePlayComponent implements OnInit, OnDestroy {
     const filterPipe = new FilterSelectablePipe();
     const hiddenPipe = new FilterHiddenTilePipe();
     let selectables = hiddenPipe.transform(this.tiles, null);
-    selectables = filterPipe.transform(selectables, null).filter(tile => {
+    selectables = filterPipe.transform(selectables, true).filter(tile => {
       return tile.selectable === true;
     });
 
