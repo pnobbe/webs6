@@ -1,20 +1,20 @@
 <svg:defs xmlns="http://www.w3.org/2000/svg">
   <filter id="tile{{getId}}" x="-100%" y="-100%" width="300%" height="300%">
     <feDropShadow dx="-2" dy="2" stdDeviation="3"/>
-    <feDiffuseLighting *ngIf="tile.hint" in="SourceGraphic" result="light"
+    <feDiffuseLighting *ngIf="tile?.hint" in="SourceGraphic" result="light"
                        lighting-color="rgba(255,255,182,0.1)">
       <fePointLight [attr.x]="getXPos" [attr.y]="getYPos" z="50" />
     </feDiffuseLighting>
 
-    <feDiffuseLighting *ngIf="tile.selected" in="SourceGraphic" result="light"
+    <feDiffuseLighting *ngIf="tile?.selected" in="SourceGraphic" result="light"
                        lighting-color="rgba(182,255,182,0.1)">
       <fePointLight [attr.x]="getXPos" [attr.y]="getYPos" z="50" />
     </feDiffuseLighting>
 
-    <feComposite *ngIf="tile.hint" in="SourceGraphic" in2="light"
+    <feComposite *ngIf="tile?.hint" in="SourceGraphic" in2="light"
                  operator="arithmetic" k1="1" k2="0" k3="0" k4="0"/>
 
-    <feComposite *ngIf="tile.selected" in="SourceGraphic" in2="light"
+    <feComposite *ngIf="tile?.selected" in="SourceGraphic" in2="light"
                  operator="arithmetic" k1="1" k2="0" k3="0" k4="0"/>
   </filter>
 </svg:defs>

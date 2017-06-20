@@ -27,7 +27,7 @@ export class GamePlayHistoryComponent extends GameInitHelper implements OnInit, 
 
   @Output() outTiles = new EventEmitter<Tile[]>();
 
-  constructor(protected api: ApiService, private route: ActivatedRoute, private router: Router, private snackBar: MdSnackBar) {
+  constructor(public api: ApiService, private route: ActivatedRoute, private router: Router, private snackBar: MdSnackBar) {
     super();
     this.history = 0;
   }

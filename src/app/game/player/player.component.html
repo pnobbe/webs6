@@ -1,4 +1,4 @@
-<span><h4>{{player.name}}</h4> <label *ngIf="matches">{{matches.length}}</label></span>
+<span><h4>{{player?.name}}</h4> <label *ngIf="matches">{{matches?.length}}</label></span>
 <span *ngFor="let match of matches">
   <app-match [match]="match"></app-match>
 </span>

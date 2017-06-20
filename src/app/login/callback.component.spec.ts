@@ -1,4 +1,14 @@
 import {async, ComponentFixture, TestBed} from "@angular/core/testing";
+import {LoginComponent} from "./login.component";
+import {MaterialDesignModule} from "../materialdesign.module";
+import {BrowserModule} from "@angular/platform-browser";
+import {FormsModule} from "@angular/forms";
+import {CommonModule} from "@angular/common";
+import {RouterModule} from "@angular/router";
+import {HttpModule, XHRBackend, ResponseOptions, Response, RequestMethod} from "@angular/http";
+import {MockBackend} from "@angular/http/testing";
+import { RouterTestingModule } from "@angular/router/testing";
+import {ApiService} from "../api/api.service";
 import {LoginCallbackComponent} from "./callback.component";
 
 
@@ -8,7 +18,21 @@ describe("LoginCallbackComponent", () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-        declarations: [LoginCallbackComponent]
+        imports: [
+          CommonModule,
+          BrowserModule,
+          MaterialDesignModule,
+          RouterTestingModule,
+          MaterialDesignModule, HttpModule
+        ],
+        declarations: [
+          LoginCallbackComponent,
+          LoginComponent
+        ],
+        providers: [ApiService, {
+          provide: XHRBackend,
+          useClass: MockBackend
+        }]
       })
       .compileComponents();
   }));

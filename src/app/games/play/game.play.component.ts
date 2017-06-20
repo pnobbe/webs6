@@ -23,8 +23,7 @@ export class GamePlayComponent extends GameInitHelper implements OnInit, OnDestr
 
   selectedTile: Tile;
 
-
-  constructor(protected api: ApiService, private route: ActivatedRoute, private router: Router, private snackBar: MdSnackBar) {
+  constructor(public api: ApiService, private route: ActivatedRoute, private router: Router, private snackBar: MdSnackBar) {
     super();
     this.history = 0;
   }
@@ -36,6 +35,7 @@ export class GamePlayComponent extends GameInitHelper implements OnInit, OnDestr
 
 
       this.getGameData(params["id"]);
+
 
       // start -> recollect all game data
       this.sockets.start().subscribe(data => {
@@ -74,6 +74,9 @@ export class GamePlayComponent extends GameInitHelper implements OnInit, OnDestr
     this.sockets.close();
   }
 
+  getGame() {
+    return this.game;
+  }
 
   start() {
     this.popup("Starting game");

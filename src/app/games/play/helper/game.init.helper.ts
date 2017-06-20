@@ -6,23 +6,25 @@ import {ApiService} from "../../../api/api.service";
 
 export abstract class GameInitHelper {
 
-  protected sockets: SocketService;
-  protected api: ApiService;
-  protected game: Game;
-  protected tiles: Tile[];
-  protected seenMatches: string[];
-  protected history: number;
-  protected action: string;
+  public sockets: SocketService;
+  public api: ApiService;
+  public game: Game;
+  public tiles: Tile[];
+  public seenMatches: string[];
+  public history: number;
+  public action: string;
 
-  protected getGameData(id: string) {
+  public getGameData(id: string) {
 
     // load data
-    this.api.games.getGame(id).then(newGame => {
+    const self = this;
+    return this.api.games.getGame(id).then(newGame => {
 
         if (newGame == null) {
           return alert("Something went wrong!");
         }
         this.game = newGame;
+
 
         // get tiles
         if (this.game.state === "open") {
@@ -37,14 +39,12 @@ export abstract class GameInitHelper {
           // game is in progress, get game tiles
           this.api.games.gameTiles(this.game._id, false).then(tiles => {
             this.tiles = tiles;
-
             // filter out the already matched tiles
             const matches = tiles.filter(t => {
               return t.match !== null && t.match.foundBy !== null;
             }).sort((a, b) => {
               return a.match.foundOn.getTime() - b.match.foundOn.getTime();
             });
-
             this.seenMatches = [];
             for (let i = 0; i < matches.length; i++) {
               this.addMatch(matches[i]._id, matches[i].match.otherTileId,

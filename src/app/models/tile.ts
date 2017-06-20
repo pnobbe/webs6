@@ -3,7 +3,6 @@ export class Tile {
   xPos: number;
   yPos: number;
   zPos: number;
-  hidden = false;
   tile: {
     _id: number;
     suit: string;
@@ -15,6 +14,7 @@ export class Tile {
     foundOn: Date;
     otherTileId: string;
   };
+  hidden = false;
   selectable: boolean;
   hint: boolean;
   historyTile: boolean;

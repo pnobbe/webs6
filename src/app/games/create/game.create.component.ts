@@ -16,7 +16,7 @@ export class GameCreateComponent implements OnInit {
   gameTemplates: GameTemplate[] = [];
   model: Game;
 
-  constructor(private api: ApiService, private router: Router) {
+  constructor(public api: ApiService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -29,6 +29,7 @@ export class GameCreateComponent implements OnInit {
       }
     });
   }
+
 
   onSubmit() {
     this.api.games.createGame(this.model.gameTemplate.id, this.model.minPlayers, this.model.maxPlayers).then(game => {

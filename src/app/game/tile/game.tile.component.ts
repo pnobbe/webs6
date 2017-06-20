@@ -31,10 +31,17 @@ export class GameTileComponent implements OnInit {
   }
 
   get getXPos(): number {
+    if (!this.tile) {
+      return 0;
+    }
+
     return (this.tile.xPos * (this.getWidth / 2.2)) + (this.tile.zPos * this.getWidth / 8);
   }
 
   get getYPos(): number {
+    if (!this.tile) {
+      return 0;
+    }
     return (this.tile.yPos * (this.getHeight / 2.2)) - (this.tile.zPos * this.getHeight / 8);
   }
 
@@ -47,6 +54,9 @@ export class GameTileComponent implements OnInit {
   }
 
   get getClasses(): string {
+    if (!this.tile) {
+      return "";
+    }
     let classes = "tile ";
     if (this.tile.selectable) {
       classes += "selectable ";
@@ -58,6 +68,10 @@ export class GameTileComponent implements OnInit {
   }
 
   onClick(tile: Tile) {
+    if (!this.tile) {
+      console.log("Tile is not clickable");
+    }
+
     if (tile.tile && this.tile.selectable) {
       this.tile.selected = !this.tile.selected;
       this.onSelected.emit(tile);

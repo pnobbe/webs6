@@ -40,7 +40,7 @@ export class SpriteApi extends Connection {
   };
 
   getSprite(tile: Tile): string {
-    if (!tile.tile) {
+    if (!tile || !tile.tile) {
       return this.dataUrls["29"];
     }
     return this.dataUrls[this.suit[tile.tile.suit] + this.name[tile.tile.name]];

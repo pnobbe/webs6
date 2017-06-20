@@ -27,7 +27,7 @@ export class GamePlayBoardComponent extends GameInitHelper implements OnInit, On
   @Input() inpAction: string;
   @Input() history: number;
 
-  constructor(protected api: ApiService, private route: ActivatedRoute, private router: Router, private snackBar: MdSnackBar) {
+  constructor(public api: ApiService, private route: ActivatedRoute, private router: Router, private snackBar: MdSnackBar) {
     super();
     this.history = 0;
   }
@@ -105,7 +105,7 @@ export class GamePlayBoardComponent extends GameInitHelper implements OnInit, On
     }
   }
 
-  private getHint() {
+  public getHint() {
     const filterPipe = new FilterSelectablePipe();
     const hiddenPipe = new FilterHiddenTilePipe();
     let selectables = hiddenPipe.transform(this.tiles, null);
@@ -118,11 +118,12 @@ export class GamePlayBoardComponent extends GameInitHelper implements OnInit, On
         if (selectables[i].matches(selectables[j])) {
           selectables[i].hint = true;
           selectables[j].hint = true;
-          return;
+          return selectables;
         }
       }
     }
     this.popup("Unable to find any matches, game should be over.");
+    return null;
   }
 
   ngOnDestroy() {
