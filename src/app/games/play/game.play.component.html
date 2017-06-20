@@ -1,5 +1,5 @@
 <div *ngIf="game; else loading">
-  <h1>{{action}}</h1>
+  <h1 class="action-title">{{action}}</h1>
   <button class="md-secondary" md-raised-button color="primary" *ngIf="game.canLeave" (click)="leave()">
     Leave
   </button>

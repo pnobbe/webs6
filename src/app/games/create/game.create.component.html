@@ -19,7 +19,7 @@
         <option *ngFor="let template of gameTemplates | keys" [value]="template">{{template}}</option>
       </select>
     </div>
-    <button type="submit" md-raised-button color="primary" [disabled]="!createForm.form.valid">Submit</button>
+    <button type="submit" id="submit" md-raised-button color="primary" [disabled]="!createForm.form.valid">Submit</button>
     <button type="button" class="btn btn-default" (click)="newGame();createForm.reset();">Reset</button>
   </form>
 

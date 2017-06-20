@@ -34,17 +34,6 @@
     font-style: normal;
   }
 
-  .mat-raised-button, .mat-primary {
-    background: rgba($accent-color, .3);
-    border: 2px solid rgba($primary-color, .6);
-    border-radius: 15px;
-    -webkit-transition: all .3s;
-    -moz-transition: all .3s;
-    -ms-transition: all .3s;
-    -o-transition: all .3s;
-    transition: all .3s;
-  }
-
   .site-name {
     @extend .text;
     font-family: $font-primary;
@@ -53,7 +42,7 @@
     line-height: 40px;
     text-align: center;
     color: $accent-color;
-    text-shadow: $primary-color 0px 0px 10px;
+    text-shadow: $primary-color 0 0 10px;
     text-size-adjust: 100%;
     width: auto;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -98,7 +87,7 @@
   }
 
   .mat-select-value-text, .mat-select-trigger {
-    color: $primary-color;
+    color: white !important;
   }
 
 }

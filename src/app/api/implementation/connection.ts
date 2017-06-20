@@ -13,10 +13,12 @@ export class Connection {
 
   set email(email: string) {
     ApiService.user_email = email;
+    console.log(email);
     localStorage.setItem("user-email", email);
   }
 
   set token(token: string) {
+    console.log(token);
     localStorage.setItem("user-token", token);
   }
 

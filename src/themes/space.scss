@@ -37,11 +37,11 @@ $mat-white: (
 $space-primary: mat-palette($mat-teal);
 $space-accent: mat-palette($mat-white);
 $space-theme: mat-light-theme($space-primary, $space-accent);
-$space-background-hover-color: rgba(43, 237, 230, .2);
+//$space-background-hover-color: rgba(43, 237, 230, .2);
 $space-background-image: url("assets/space.jpg");
-$space-header-text-color: #fff;
-$space-container-background: rgba(43,237,230,.1);
-$space-color: #2bede6;
+//$space-header-text-color: #fff;
+//$space-container-background: rgba(43,237,230,.1);
+//$space-color: #2bede6;
 
 // Include the default theme styles.
 @include angular-material-theme($space-theme);

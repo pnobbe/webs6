@@ -1,5 +1,4 @@
-import {async, ComponentFixture, TestBed} from "@angular/core/testing";
-import {ApiService} from "./api.service";
+import {async} from "@angular/core/testing";
 
 
 describe("GameListComponent", () => {

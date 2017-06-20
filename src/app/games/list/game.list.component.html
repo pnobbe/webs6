@@ -1,12 +1,11 @@
 <h1>Games list</h1>
-<h3>{{getStatus()}}</h3>
+<h3 class="status">{{getStatus()}}</h3>
 <p>
-  <button md-raised-button color="primary" routerLink="/games/open" routerLinkActive="active">Open games</button>
-  <button md-raised-button color="primary" routerLink="/games/playing" routerLinkActive="active">Started games</button>
-  <button md-raised-button color="primary" routerLink="/games/finished" routerLinkActive="active">Finished games
-  </button>
-  <button md-raised-button color="primary" routerLink="/games/mine" routerLinkActive="active">My games</button>
-  <button md-raised-button color="primary" routerLink="/games/favorites" routerLinkActive="active">Favorites</button>
+  <button md-raised-button color="primary" id="open" routerLink="/games/open" routerLinkActive="active">Open games</button>
+  <button md-raised-button color="primary" id="started" routerLink="/games/playing" routerLinkActive="active">Started games</button>
+  <button md-raised-button color="primary" id="finished" routerLink="/games/finished" routerLinkActive="active">Finished games</button>
+  <button md-raised-button color="primary" id="mygames" routerLink="/games/mine" routerLinkActive="active">My games</button>
+  <button md-raised-button color="primary" id="favorites" routerLink="/games/favorites" routerLinkActive="active">Favorites</button>
 </p>
 
 <div *ngIf="getStatus()==='favorites'">
@@ -16,12 +15,12 @@
 <div class="row box">
   <div class="col-xs-12 col-md-6 col-lg-4 col-xl-2"
        *ngFor="let game of games | gameFilter : getStatus(): getUser()">
-    <div class="panel panel-default"
+    <div class="panel panel-default game" [attr.id]="game._id"
          [style.background]="'url(assets/games/' + game.gameTemplate.id.toLowerCase() + '.jpg)'"
          [style.background-repeat]="'no-repeat'"
          [style.background-size]="'cover'">
       <div class="panel-heading header">
-        <h4 class="text overflow"><md-icon (click)="toggleFavorite(game)" [class.notFavorite]="!game.isFavorite">star</md-icon> {{game.gameTemplate.id}} - {{game.createdBy.name}}</h4>
+        <h4 class="text overflow"><md-icon class="favorite" (click)="toggleFavorite(game)" [class.notFavorite]="!game.isFavorite">star</md-icon> {{game.gameTemplate.id}} - {{game.createdBy.name}}</h4>
         <h6 class="text">{{game.state}}</h6>
       </div>
       <div class="panel-body">
@@ -33,26 +32,26 @@
           [hidden]="game.endedOn"> - </span></p>
       </div>
       <div class="panel-footer" style="height:60px">
-        <button class="md-secondary" md-raised-button color="primary" *ngIf="game.canLobby" (click)="play(game)">
+        <button class="md-secondary lobby" md-raised-button color="primary" *ngIf="game.canLobby" (click)="play(game)">
           Lobby
         </button>
-        <button class="md-secondary" md-raised-button color="primary" *ngIf="game.canJoin" (click)="join(game)">Join
+        <button class="md-secondary join" md-raised-button color="primary" *ngIf="game.canJoin" (click)="join(game)">Join
         </button>
-        <button class="md-secondary" md-raised-button color="primary" *ngIf="game.canLeave" (click)="leave(game)">
+        <button class="md-secondary leave" md-raised-button color="primary" *ngIf="game.canLeave" (click)="leave(game)">
           Leave
         </button>
-        <button class="md-secondary" md-raised-button color="primary" *ngIf="game.canStart" (click)="start(game)">
+        <button class="md-secondary start" md-raised-button color="primary" *ngIf="game.canStart" (click)="start(game)">
           Start
         </button>
-        <button class="md-secondary" md-raised-button color="primary" *ngIf="game.canPlay" (click)="play(game)">Play
+        <button class="md-secondary play" md-raised-button color="primary" *ngIf="game.canPlay" (click)="play(game)">Play
         </button>
-        <button class="md-secondary" md-raised-button color="primary" *ngIf="game.canSpectate"
+        <button class="spectate md-secondary" md-raised-button color="primary" *ngIf="game.canSpectate"
                 (click)="spectate(game)">Spectate
         </button>
-        <button class="md-secondary" md-raised-button color="primary" *ngIf="game.canView" (click)="view(game)">
+        <button class="md-secondary view" md-raised-button color="primary" *ngIf="game.canView" (click)="view(game)">
           View
         </button>
-        <button class="md-secondary" md-raised-button color="primary" *ngIf="game.canDelete" (click)="delete(game)">
+        <button class="md-secondary delete" md-raised-button color="primary" *ngIf="game.canDelete" (click)="delete(game)">
           Delete
         </button>
       </div>
